@@ -1,0 +1,1363 @@
+2026-01-17 15:39:49,061 - INFO - ==== TEST RUN STARTED ====
+2026-01-17 15:39:51,121 - INFO - GET /health | Status: 200 | Response: {
+  "status": "ok"
+}
+
+2026-01-17 15:39:51,121 - INFO - Health check passed
+2026-01-17 15:39:53,167 - INFO - GET /features | Status: 200 | Response: [
+  {
+    "description": "Hood expands when threatened",
+    "feature_id": 1,
+    "name": "Hood present"
+  },
+  {
+    "description": "Head is distinctly triangular",
+    "feature_id": 2,
+    "name": "Triangular head"
+  },
+  {
+    "description": "Body has colored bands",
+    "feature_id": 3,
+    "name": "Bands on body"
+  },
+  {
+    "description": "Eyes have round pupils",
+    "feature_id": 4,
+    "name": "Round pupils"
+  },
+  {
+    "description": "Heat-sensing pit between eyes and nostrils",
+    "feature_id": 5,
+    "name": "Pit organ"
+  },
+  {
+    "description": "Scales on body are ridged",
+    "feature_id": 6,
+    "name": "Keel scales"
+  },
+  {
+    "description": "Tail has distinct color from body",
+    "feature_id": 7,
+    "name": "Tail color different"
+  }
+]
+
+2026-01-17 15:39:53,168 - INFO - Features fetched successfully
+2026-01-17 15:39:55,210 - INFO - GET /regions | Status: 200 | Response: [
+  {
+    "name": "Western Province",
+    "region_id": 1
+  },
+  {
+    "name": "Central Province",
+    "region_id": 2
+  },
+  {
+    "name": "Southern Province",
+    "region_id": 3
+  }
+]
+
+2026-01-17 15:39:55,210 - INFO - Regions fetched successfully
+2026-01-17 15:39:57,269 - INFO - GET /snakes | Status: 200 | Response: [
+  {
+    "common_name": "Common Cat Snake",
+    "description": "Mildly venomous, usually non-aggressive",
+    "scientific_name": "Boiga trigonata",
+    "snake_id": 1,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Ceylon Krait",
+    "description": "Highly venomous, nocturnal",
+    "scientific_name": "Bungarus ceylonicus",
+    "snake_id": 2,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Spectacled Cobra",
+    "description": "Venomous, hooded, found throughout Sri Lanka",
+    "scientific_name": "Naja naja",
+    "snake_id": 3,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Green Vine Snake",
+    "description": "Non-venomous, arboreal, thin green body",
+    "scientific_name": "Ahaetulla nasuta",
+    "snake_id": 4,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Russell's Viper",
+    "description": "Highly venomous, terrestrial",
+    "scientific_name": "Daboia russelii",
+    "snake_id": 5,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Ceylon Trinket Snake",
+    "description": "Non-venomous, active at night",
+    "scientific_name": "Coelognathus helena",
+    "snake_id": 6,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Common Sand Boa",
+    "description": "Non-venomous, burrowing snake",
+    "scientific_name": "Eryx conicus",
+    "snake_id": 7,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Starred Bronzeback",
+    "description": "Non-venomous, diurnal",
+    "scientific_name": "Dendrelaphis punctulatus",
+    "snake_id": 8,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Common Wolf Snake",
+    "description": "Mild venom, rarely dangerous to humans",
+    "scientific_name": "Lycodon aulicus",
+    "snake_id": 9,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Hump-nosed Pit Viper",
+    "description": "Venomous, small viper",
+    "scientific_name": "Hypnale hypnale",
+    "snake_id": 10,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Test Cobra",
+    "description": "Created during automated testing",
+    "scientific_name": "Naja testus",
+    "snake_id": 11,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Updated Test Cobra",
+    "description": "Updated during testing",
+    "scientific_name": "Naja updatedus",
+    "snake_id": 12,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Updated Test Cobra",
+    "description": "Updated during testing",
+    "scientific_name": "Naja updatedus",
+    "snake_id": 13,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Updated Test Cobra",
+    "description": "Updated during testing",
+    "scientific_name": "Naja updatedus",
+    "snake_id": 14,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Updated Test Cobra",
+    "description": "Updated during testing",
+    "scientific_name": "Naja updatedus",
+    "snake_id": 15,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Updated Test Cobra",
+    "description": "Updated during testing",
+    "scientific_name": "Naja updatedus",
+    "snake_id": 16,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Updated Test Cobra",
+    "description": "Updated during testing",
+    "scientific_name": "Naja updatedus",
+    "snake_id": 17,
+    "venom_level": "high"
+  }
+]
+
+2026-01-17 15:39:57,269 - INFO - All snakes fetched successfully
+2026-01-17 15:39:59,338 - INFO - POST /snakes | Status: 201 | Response: {
+  "snake_id": 18
+}
+
+2026-01-17 15:39:59,340 - INFO - Snake created (ID=18)
+2026-01-17 15:40:01,384 - INFO - GET /snakes/18 | Status: 200 | Response: {
+  "common_name": "Test Cobra",
+  "description": "Created during automated testing",
+  "scientific_name": "Naja testus",
+  "snake_id": 18,
+  "venom_level": "high"
+}
+
+2026-01-17 15:40:01,384 - INFO - Single snake fetched successfully
+2026-01-17 15:40:03,457 - INFO - PUT /snakes/18 | Status: 200 | Response: {
+  "status": "updated"
+}
+
+2026-01-17 15:40:03,460 - INFO - Snake updated successfully
+2026-01-17 15:40:05,505 - INFO - POST /users | Status: 200 | Response: {
+  "user_id": null
+}
+
+2026-01-17 15:40:05,506 - INFO - User creation handled correctly
+2026-01-17 15:40:07,576 - INFO - POST /attempts | Status: 200 | Response: {
+  "attempt_id": 9
+}
+
+2026-01-17 15:40:07,578 - INFO - Attempt logged successfully
+2026-01-17 15:40:09,652 - INFO - GET /attempts/1 | Status: 200 | Response: [
+  {
+    "attempt_id": 9,
+    "correct": true,
+    "snake_id": 18,
+    "timestamp": "2026-01-17T15:40:07.559685"
+  },
+  {
+    "attempt_id": 8,
+    "correct": true,
+    "snake_id": 17,
+    "timestamp": "2026-01-17T15:38:54.195884"
+  },
+  {
+    "attempt_id": 7,
+    "correct": true,
+    "snake_id": 16,
+    "timestamp": "2026-01-17T15:34:52.660372"
+  },
+  {
+    "attempt_id": 6,
+    "correct": true,
+    "snake_id": 15,
+    "timestamp": "2026-01-17T15:33:38.596452"
+  },
+  {
+    "attempt_id": 5,
+    "correct": true,
+    "snake_id": 14,
+    "timestamp": "2026-01-17T15:20:31.869848"
+  },
+  {
+    "attempt_id": 2,
+    "correct": false,
+    "snake_id": 3,
+    "timestamp": "2026-01-02 10:20:00"
+  },
+  {
+    "attempt_id": 1,
+    "correct": true,
+    "snake_id": 1,
+    "timestamp": "2026-01-02 10:15:00"
+  }
+]
+
+2026-01-17 15:40:09,653 - INFO - Attempts fetched successfully
+2026-01-17 15:40:11,729 - INFO - DELETE /snakes/18 | Status: 500 | Response: <!doctype html>
+<html lang=en>
+  <head>
+    <title>sqlite3.IntegrityError: FOREIGN KEY constraint failed
+ // Werkzeug Debugger</title>
+    <link rel="stylesheet" href="?__debugger__=yes&amp;cmd=resource&amp;f=style.css">
+    <link rel="shortcut icon"
+        href="?__debugger__=yes&amp;cmd=resource&amp;f=console.png">
+    <script src="?__debugger__=yes&amp;cmd=resource&amp;f=debugger.js"></script>
+    <script>
+      var CONSOLE_MODE = false,
+          EVALEX = true,
+          EVALEX_TRUSTED = false,
+          SECRET = "GEDs9eGOmTDGEfpa02J2";
+    </script>
+  </head>
+  <body style="background-color: #fff">
+    <div class="debugger">
+<h1>IntegrityError</h1>
+<div class="detail">
+  <p class="errormsg">sqlite3.IntegrityError: FOREIGN KEY constraint failed
+</p>
+</div>
+<h2 class="traceback">Traceback <em>(most recent call last)</em></h2>
+<div class="traceback">
+  <h3></h3>
+  <ul><li><div class="frame" id="frame-2276169125600">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1536</em>,
+      in <code class="function">__call__</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">    </span>) -&gt; cabc.Iterable[bytes]:</pre>
+<pre class="line before"><span class="ws">        </span>&#34;&#34;&#34;The WSGI server calls the Flask application object as the</pre>
+<pre class="line before"><span class="ws">        </span>WSGI application. This calls :meth:`wsgi_app`, which can be</pre>
+<pre class="line before"><span class="ws">        </span>wrapped to apply middleware.</pre>
+<pre class="line before"><span class="ws">        </span>&#34;&#34;&#34;</pre>
+<pre class="line current"><span class="ws">        </span>return self.wsgi_app(environ, start_response)
+<span class="ws">        </span>       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2276169125888">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1514</em>,
+      in <code class="function">wsgi_app</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>try:</pre>
+<pre class="line before"><span class="ws">                </span>ctx.push()</pre>
+<pre class="line before"><span class="ws">                </span>response = self.full_dispatch_request()</pre>
+<pre class="line before"><span class="ws">            </span>except Exception as e:</pre>
+<pre class="line before"><span class="ws">                </span>error = e</pre>
+<pre class="line current"><span class="ws">                </span>response = self.handle_exception(e)
+<span class="ws">                </span>           ^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">            </span>except:  # noqa: B001</pre>
+<pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre>
+<pre class="line after"><span class="ws">                </span>raise</pre>
+<pre class="line after"><span class="ws">            </span>return response(environ, start_response)</pre>
+<pre class="line after"><span class="ws">        </span>finally:</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2276169126032">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1511</em>,
+      in <code class="function">wsgi_app</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>ctx = self.request_context(environ)</pre>
+<pre class="line before"><span class="ws">        </span>error: BaseException | None = None</pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>try:</pre>
+<pre class="line before"><span class="ws">                </span>ctx.push()</pre>
+<pre class="line current"><span class="ws">                </span>response = self.full_dispatch_request()
+<span class="ws">                </span>           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">            </span>except Exception as e:</pre>
+<pre class="line after"><span class="ws">                </span>error = e</pre>
+<pre class="line after"><span class="ws">                </span>response = self.handle_exception(e)</pre>
+<pre class="line after"><span class="ws">            </span>except:  # noqa: B001</pre>
+<pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2276169126464">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">919</em>,
+      in <code class="function">full_dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>request_started.send(self, _async_wrapper=self.ensure_sync)</pre>
+<pre class="line before"><span class="ws">            </span>rv = self.preprocess_request()</pre>
+<pre class="line before"><span class="ws">            </span>if rv is None:</pre>
+<pre class="line before"><span class="ws">                </span>rv = self.dispatch_request()</pre>
+<pre class="line before"><span class="ws">        </span>except Exception as e:</pre>
+<pre class="line current"><span class="ws">            </span>rv = self.handle_user_exception(e)
+<span class="ws">            </span>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>return self.finalize_request(rv)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def finalize_request(</pre>
+<pre class="line after"><span class="ws">        </span>self,</pre>
+<pre class="line after"><span class="ws">        </span>rv: ft.ResponseReturnValue | HTTPException,</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2276169126608">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">917</em>,
+      in <code class="function">full_dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>request_started.send(self, _async_wrapper=self.ensure_sync)</pre>
+<pre class="line before"><span class="ws">            </span>rv = self.preprocess_request()</pre>
+<pre class="line before"><span class="ws">            </span>if rv is None:</pre>
+<pre class="line current"><span class="ws">                </span>rv = self.dispatch_request()
+<span class="ws">                </span>     ^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>except Exception as e:</pre>
+<pre class="line after"><span class="ws">            </span>rv = self.handle_user_exception(e)</pre>
+<pre class="line after"><span class="ws">        </span>return self.finalize_request(rv)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def finalize_request(</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2276169126752">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">902</em>,
+      in <code class="function">dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>and req.method == &#34;OPTIONS&#34;</pre>
+<pre class="line before"><span class="ws">        </span>):</pre>
+<pre class="line before"><span class="ws">            </span>return self.make_default_options_response()</pre>
+<pre class="line before"><span class="ws">        </span># otherwise dispatch to the handler for that endpoint</pre>
+<pre class="line before"><span class="ws">        </span>view_args: dict[str, t.Any] = req.view_args  # type: ignore[assignment]</pre>
+<pre class="line current"><span class="ws">        </span>return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+<span class="ws">        </span>       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def full_dispatch_request(self) -&gt; Response:</pre>
+<pre class="line after"><span class="ws">        </span>&#34;&#34;&#34;Dispatches the request and on top of that performs request</pre>
+<pre class="line after"><span class="ws">        </span>pre and postprocessing as well as HTTP exception catching and</pre>
+<pre class="line after"><span class="ws">        </span>error handling.</pre></div>
+</div>
+
+<li><div class="frame" id="frame-2276169126896">
+  <h4>File <cite class="filename">"c:\Users\isavi\Documents\python\snake quiz\app.py"</cite>,
+      line <em class="line">81</em>,
+      in <code class="function">delete_snake</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">    </span>db.update_snake(snake)</pre>
+<pre class="line before"><span class="ws">    </span>return jsonify({&#34;status&#34;: &#34;updated&#34;})</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws"></span>@app.route(&#34;/snakes/&lt;int:snake_id&gt;&#34;, methods=[&#34;DELETE&#34;])</pre>
+<pre class="line before"><span class="ws"></span>def delete_snake(snake_id):</pre>
+<pre class="line current"><span class="ws">    </span>db.delete_snake(snake_id)
+<span class="ws">    </span>^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">    </span>return jsonify({&#34;status&#34;: &#34;deleted&#34;})</pre>
+<pre class="line after"><span class="ws"></span>@app.route(&#34;/snakes/&lt;int:snake_id&gt;/features&#34;, methods=[&#34;POST&#34;])</pre>
+<pre class="line after"><span class="ws"></span>def add_feature_to_snake(snake_id):</pre>
+<pre class="line after"><span class="ws">    </span>data = request.json</pre>
+<pre class="line after"><span class="ws"></span> </pre></div>
+</div>
+
+<li><div class="frame" id="frame-2276169127040">
+  <h4>File <cite class="filename">"c:\Users\isavi\Documents\python\snake quiz\db.py"</cite>,
+      line <em class="line">72</em>,
+      in <code class="function">delete_snake</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">        </span>for feature in snake.features:</pre>
+<pre class="line before"><span class="ws">            </span>snake.remove_feature(db=self, feature=feature[0])</pre>
+<pre class="line before"><span class="ws">        </span>for region in snake.regions:</pre>
+<pre class="line before"><span class="ws">            </span>snake.remove_region(db=self, region=region)</pre>
+<pre class="line before"><span class="ws">        </span>snake.save(db=self)</pre>
+<pre class="line current"><span class="ws">        </span>cursor.execute(&#34;DELETE FROM Snake WHERE snake_id = ?&#34;, (snake_id,))
+<span class="ws">        </span>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>conn.commit()</pre>
+<pre class="line after"><span class="ws">        </span>conn.close()</pre>
+<pre class="line after"><span class="ws">    </span>def clear_snake_links(self, snake_id):</pre>
+<pre class="line after"><span class="ws">        </span>&#34;&#34;&#34;</pre>
+<pre class="line after"><span class="ws">        </span>Removes all feature &amp; region links for a snake.</pre></div>
+</div>
+</ul>
+  <blockquote>sqlite3.IntegrityError: FOREIGN KEY constraint failed
+</blockquote>
+</div>
+
+<div class="plain">
+    <p>
+      This is the Copy/Paste friendly version of the traceback.
+    </p>
+    <textarea cols="50" rows="10" name="code" readonly>Traceback (most recent call last):
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 1514, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;c:\Users\isavi\Documents\python\snake quiz\app.py&#34;, line 81, in delete_snake
+    db.delete_snake(snake_id)
+  File &#34;c:\Users\isavi\Documents\python\snake quiz\db.py&#34;, line 72, in delete_snake
+    cursor.execute(&#34;DELETE FROM Snake WHERE snake_id = ?&#34;, (snake_id,))
+sqlite3.IntegrityError: FOREIGN KEY constraint failed
+</textarea>
+</div>
+<div class="explanation">
+  The debugger caught an exception in your WSGI application.  You can now
+  look at the traceback which led to the error.  <span class="nojavascript">
+  If you enable JavaScript you can also use additional features such as code
+  execution (if the evalex feature is enabled), automatic pasting of the
+  exceptions and much more.</span>
+</div>
+      <div class="footer">
+        Brought to you by <strong class="arthur">DON'T PANIC</strong>, your
+        friendly Werkzeug powered traceback interpreter.
+      </div>
+    </div>
+
+    <div class="pin-prompt">
+      <div class="inner">
+        <h3>Console Locked</h3>
+        <p>
+          The console is locked and needs to be unlocked by entering the PIN.
+          You can find the PIN printed out on the standard output of your
+          shell that runs the server.
+        <form>
+          <p>PIN:
+            <input type=text name=pin size=14>
+            <input type=submit name=btn value="Confirm Pin">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!--
+
+Traceback (most recent call last):
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\isavi\Documents\python\snake quiz\app.py", line 81, in delete_snake
+    db.delete_snake(snake_id)
+  File "c:\Users\isavi\Documents\python\snake quiz\db.py", line 72, in delete_snake
+    cursor.execute("DELETE FROM Snake WHERE snake_id = ?", (snake_id,))
+sqlite3.IntegrityError: FOREIGN KEY constraint failed
+
+
+-->
+
+2026-01-17 15:40:11,731 - ERROR - Failed to delete snake
+2026-01-17 15:43:02,278 - INFO - ==== TEST RUN STARTED ====
+2026-01-17 15:43:04,325 - INFO - GET /health | Status: 200 | Response: {
+  "status": "ok"
+}
+
+2026-01-17 15:43:04,325 - INFO - Health check passed
+2026-01-17 15:43:06,389 - INFO - GET /features | Status: 500 | Response: <!doctype html>
+<html lang=en>
+  <head>
+    <title>sqlite3.OperationalError: no such table: Feature
+ // Werkzeug Debugger</title>
+    <link rel="stylesheet" href="?__debugger__=yes&amp;cmd=resource&amp;f=style.css">
+    <link rel="shortcut icon"
+        href="?__debugger__=yes&amp;cmd=resource&amp;f=console.png">
+    <script src="?__debugger__=yes&amp;cmd=resource&amp;f=debugger.js"></script>
+    <script>
+      var CONSOLE_MODE = false,
+          EVALEX = true,
+          EVALEX_TRUSTED = false,
+          SECRET = "wufshs2CweBo3f6cB9pP";
+    </script>
+  </head>
+  <body style="background-color: #fff">
+    <div class="debugger">
+<h1>OperationalError</h1>
+<div class="detail">
+  <p class="errormsg">sqlite3.OperationalError: no such table: Feature
+</p>
+</div>
+<h2 class="traceback">Traceback <em>(most recent call last)</em></h2>
+<div class="traceback">
+  <h3></h3>
+  <ul><li><div class="frame" id="frame-1147143999200">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1536</em>,
+      in <code class="function">__call__</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">    </span>) -&gt; cabc.Iterable[bytes]:</pre>
+<pre class="line before"><span class="ws">        </span>&#34;&#34;&#34;The WSGI server calls the Flask application object as the</pre>
+<pre class="line before"><span class="ws">        </span>WSGI application. This calls :meth:`wsgi_app`, which can be</pre>
+<pre class="line before"><span class="ws">        </span>wrapped to apply middleware.</pre>
+<pre class="line before"><span class="ws">        </span>&#34;&#34;&#34;</pre>
+<pre class="line current"><span class="ws">        </span>return self.wsgi_app(environ, start_response)
+<span class="ws">        </span>       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre></div>
+</div>
+
+<li><div class="frame" id="frame-1147143999488">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1514</em>,
+      in <code class="function">wsgi_app</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>try:</pre>
+<pre class="line before"><span class="ws">                </span>ctx.push()</pre>
+<pre class="line before"><span class="ws">                </span>response = self.full_dispatch_request()</pre>
+<pre class="line before"><span class="ws">            </span>except Exception as e:</pre>
+<pre class="line before"><span class="ws">                </span>error = e</pre>
+<pre class="line current"><span class="ws">                </span>response = self.handle_exception(e)
+<span class="ws">                </span>           ^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">            </span>except:  # noqa: B001</pre>
+<pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre>
+<pre class="line after"><span class="ws">                </span>raise</pre>
+<pre class="line after"><span class="ws">            </span>return response(environ, start_response)</pre>
+<pre class="line after"><span class="ws">        </span>finally:</pre></div>
+</div>
+
+<li><div class="frame" id="frame-1147143999632">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">1511</em>,
+      in <code class="function">wsgi_app</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">        </span>ctx = self.request_context(environ)</pre>
+<pre class="line before"><span class="ws">        </span>error: BaseException | None = None</pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>try:</pre>
+<pre class="line before"><span class="ws">                </span>ctx.push()</pre>
+<pre class="line current"><span class="ws">                </span>response = self.full_dispatch_request()
+<span class="ws">                </span>           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">            </span>except Exception as e:</pre>
+<pre class="line after"><span class="ws">                </span>error = e</pre>
+<pre class="line after"><span class="ws">                </span>response = self.handle_exception(e)</pre>
+<pre class="line after"><span class="ws">            </span>except:  # noqa: B001</pre>
+<pre class="line after"><span class="ws">                </span>error = sys.exc_info()[1]</pre></div>
+</div>
+
+<li><div class="frame" id="frame-1147144000064">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">919</em>,
+      in <code class="function">full_dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>request_started.send(self, _async_wrapper=self.ensure_sync)</pre>
+<pre class="line before"><span class="ws">            </span>rv = self.preprocess_request()</pre>
+<pre class="line before"><span class="ws">            </span>if rv is None:</pre>
+<pre class="line before"><span class="ws">                </span>rv = self.dispatch_request()</pre>
+<pre class="line before"><span class="ws">        </span>except Exception as e:</pre>
+<pre class="line current"><span class="ws">            </span>rv = self.handle_user_exception(e)
+<span class="ws">            </span>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>return self.finalize_request(rv)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def finalize_request(</pre>
+<pre class="line after"><span class="ws">        </span>self,</pre>
+<pre class="line after"><span class="ws">        </span>rv: ft.ResponseReturnValue | HTTPException,</pre></div>
+</div>
+
+<li><div class="frame" id="frame-1147144000208">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">917</em>,
+      in <code class="function">full_dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws">        </span>try:</pre>
+<pre class="line before"><span class="ws">            </span>request_started.send(self, _async_wrapper=self.ensure_sync)</pre>
+<pre class="line before"><span class="ws">            </span>rv = self.preprocess_request()</pre>
+<pre class="line before"><span class="ws">            </span>if rv is None:</pre>
+<pre class="line current"><span class="ws">                </span>rv = self.dispatch_request()
+<span class="ws">                </span>     ^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>except Exception as e:</pre>
+<pre class="line after"><span class="ws">            </span>rv = self.handle_user_exception(e)</pre>
+<pre class="line after"><span class="ws">        </span>return self.finalize_request(rv)</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def finalize_request(</pre></div>
+</div>
+
+<li><div class="frame" id="frame-1147144000352">
+  <h4>File <cite class="filename">"C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py"</cite>,
+      line <em class="line">902</em>,
+      in <code class="function">dispatch_request</code></h4>
+  <div class="source library"><pre class="line before"><span class="ws">            </span>and req.method == &#34;OPTIONS&#34;</pre>
+<pre class="line before"><span class="ws">        </span>):</pre>
+<pre class="line before"><span class="ws">            </span>return self.make_default_options_response()</pre>
+<pre class="line before"><span class="ws">        </span># otherwise dispatch to the handler for that endpoint</pre>
+<pre class="line before"><span class="ws">        </span>view_args: dict[str, t.Any] = req.view_args  # type: ignore[assignment]</pre>
+<pre class="line current"><span class="ws">        </span>return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+<span class="ws">        </span>       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">    </span>def full_dispatch_request(self) -&gt; Response:</pre>
+<pre class="line after"><span class="ws">        </span>&#34;&#34;&#34;Dispatches the request and on top of that performs request</pre>
+<pre class="line after"><span class="ws">        </span>pre and postprocessing as well as HTTP exception catching and</pre>
+<pre class="line after"><span class="ws">        </span>error handling.</pre></div>
+</div>
+
+<li><div class="frame" id="frame-1147144000496">
+  <h4>File <cite class="filename">"c:\Users\isavi\Documents\python\snake quiz\app.py"</cite>,
+      line <em class="line">122</em>,
+      in <code class="function">get_features</code></h4>
+  <div class="source "><pre class="line before"><span class="ws"></span># Features &amp; Regions</pre>
+<pre class="line before"><span class="ws"></span># ======================</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line before"><span class="ws"></span>@app.route(&#34;/features&#34;, methods=[&#34;GET&#34;])</pre>
+<pre class="line before"><span class="ws"></span>def get_features():</pre>
+<pre class="line current"><span class="ws">    </span>features = db.get_all_features()
+<span class="ws">    </span>           ^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">    </span>return jsonify([</pre>
+<pre class="line after"><span class="ws">        </span>{</pre>
+<pre class="line after"><span class="ws">            </span>&#34;feature_id&#34;: f.feature_id,</pre>
+<pre class="line after"><span class="ws">            </span>&#34;name&#34;: f.name,</pre>
+<pre class="line after"><span class="ws">            </span>&#34;description&#34;: f.description</pre></div>
+</div>
+
+<li><div class="frame" id="frame-1147144000640">
+  <h4>File <cite class="filename">"c:\Users\isavi\Documents\python\snake quiz\db.py"</cite>,
+      line <em class="line">134</em>,
+      in <code class="function">get_all_features</code></h4>
+  <div class="source "><pre class="line before"><span class="ws">    </span># ======================</pre>
+<pre class="line before"><span class="ws">    </span>def get_all_features(self):</pre>
+<pre class="line before"><span class="ws">        </span>conn = self.get_connection()</pre>
+<pre class="line before"><span class="ws">        </span>cursor = conn.cursor()</pre>
+<pre class="line before"><span class="ws"></span> </pre>
+<pre class="line current"><span class="ws">        </span>cursor.execute(&#34;SELECT * FROM Feature&#34;)
+<span class="ws">        </span>^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</pre>
+<pre class="line after"><span class="ws">        </span>rows = cursor.fetchall()</pre>
+<pre class="line after"><span class="ws">        </span>conn.close()</pre>
+<pre class="line after"><span class="ws"></span> </pre>
+<pre class="line after"><span class="ws">        </span>return [</pre>
+<pre class="line after"><span class="ws">            </span>Feature(</pre></div>
+</div>
+</ul>
+  <blockquote>sqlite3.OperationalError: no such table: Feature
+</blockquote>
+</div>
+
+<div class="plain">
+    <p>
+      This is the Copy/Paste friendly version of the traceback.
+    </p>
+    <textarea cols="50" rows="10" name="code" readonly>Traceback (most recent call last):
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 1514, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py&#34;, line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &#34;c:\Users\isavi\Documents\python\snake quiz\app.py&#34;, line 122, in get_features
+    features = db.get_all_features()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File &#34;c:\Users\isavi\Documents\python\snake quiz\db.py&#34;, line 134, in get_all_features
+    cursor.execute(&#34;SELECT * FROM Feature&#34;)
+sqlite3.OperationalError: no such table: Feature
+</textarea>
+</div>
+<div class="explanation">
+  The debugger caught an exception in your WSGI application.  You can now
+  look at the traceback which led to the error.  <span class="nojavascript">
+  If you enable JavaScript you can also use additional features such as code
+  execution (if the evalex feature is enabled), automatic pasting of the
+  exceptions and much more.</span>
+</div>
+      <div class="footer">
+        Brought to you by <strong class="arthur">DON'T PANIC</strong>, your
+        friendly Werkzeug powered traceback interpreter.
+      </div>
+    </div>
+
+    <div class="pin-prompt">
+      <div class="inner">
+        <h3>Console Locked</h3>
+        <p>
+          The console is locked and needs to be unlocked by entering the PIN.
+          You can find the PIN printed out on the standard output of your
+          shell that runs the server.
+        <form>
+          <p>PIN:
+            <input type=text name=pin size=14>
+            <input type=submit name=btn value="Confirm Pin">
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!--
+
+Traceback (most recent call last):
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\isavi\AppData\Local\Programs\Python\Python312\Lib\site-packages\flask\app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\isavi\Documents\python\snake quiz\app.py", line 122, in get_features
+    features = db.get_all_features()
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\isavi\Documents\python\snake quiz\db.py", line 134, in get_all_features
+    cursor.execute("SELECT * FROM Feature")
+sqlite3.OperationalError: no such table: Feature
+
+
+-->
+
+2026-01-17 15:43:06,391 - ERROR - Failed to fetch features
+2026-01-17 15:44:46,963 - INFO - ==== TEST RUN STARTED ====
+2026-01-17 15:44:49,025 - INFO - GET /health | Status: 200 | Response: {
+  "status": "ok"
+}
+
+2026-01-17 15:44:49,028 - INFO - Health check passed
+2026-01-17 15:44:51,090 - INFO - GET /features | Status: 200 | Response: [
+  {
+    "description": "Hood expands when threatened",
+    "feature_id": 1,
+    "name": "Hood present"
+  },
+  {
+    "description": "Head is distinctly triangular",
+    "feature_id": 2,
+    "name": "Triangular head"
+  },
+  {
+    "description": "Body has colored bands",
+    "feature_id": 3,
+    "name": "Bands on body"
+  },
+  {
+    "description": "Eyes have round pupils",
+    "feature_id": 4,
+    "name": "Round pupils"
+  },
+  {
+    "description": "Heat-sensing pit between eyes and nostrils",
+    "feature_id": 5,
+    "name": "Pit organ"
+  },
+  {
+    "description": "Scales on body are ridged",
+    "feature_id": 6,
+    "name": "Keel scales"
+  },
+  {
+    "description": "Tail has distinct color from body",
+    "feature_id": 7,
+    "name": "Tail color different"
+  }
+]
+
+2026-01-17 15:44:51,091 - INFO - Features fetched successfully
+2026-01-17 15:44:53,152 - INFO - GET /regions | Status: 200 | Response: [
+  {
+    "name": "Western Province",
+    "region_id": 1
+  },
+  {
+    "name": "Central Province",
+    "region_id": 2
+  },
+  {
+    "name": "Southern Province",
+    "region_id": 3
+  }
+]
+
+2026-01-17 15:44:53,157 - INFO - Regions fetched successfully
+2026-01-17 15:44:55,210 - INFO - GET /snakes | Status: 200 | Response: [
+  {
+    "common_name": "Common Cat Snake",
+    "description": "Mildly venomous, usually non-aggressive",
+    "scientific_name": "Boiga trigonata",
+    "snake_id": 1,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Ceylon Krait",
+    "description": "Highly venomous, nocturnal",
+    "scientific_name": "Bungarus ceylonicus",
+    "snake_id": 2,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Spectacled Cobra",
+    "description": "Venomous, hooded, found throughout Sri Lanka",
+    "scientific_name": "Naja naja",
+    "snake_id": 3,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Green Vine Snake",
+    "description": "Non-venomous, arboreal, thin green body",
+    "scientific_name": "Ahaetulla nasuta",
+    "snake_id": 4,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Russell's Viper",
+    "description": "Highly venomous, terrestrial",
+    "scientific_name": "Daboia russelii",
+    "snake_id": 5,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Ceylon Trinket Snake",
+    "description": "Non-venomous, active at night",
+    "scientific_name": "Coelognathus helena",
+    "snake_id": 6,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Common Sand Boa",
+    "description": "Non-venomous, burrowing snake",
+    "scientific_name": "Eryx conicus",
+    "snake_id": 7,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Starred Bronzeback",
+    "description": "Non-venomous, diurnal",
+    "scientific_name": "Dendrelaphis punctulatus",
+    "snake_id": 8,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Common Wolf Snake",
+    "description": "Mild venom, rarely dangerous to humans",
+    "scientific_name": "Lycodon aulicus",
+    "snake_id": 9,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Hump-nosed Pit Viper",
+    "description": "Venomous, small viper",
+    "scientific_name": "Hypnale hypnale",
+    "snake_id": 10,
+    "venom_level": "mild"
+  }
+]
+
+2026-01-17 15:44:55,211 - INFO - All snakes fetched successfully
+2026-01-17 15:44:57,293 - INFO - POST /snakes | Status: 201 | Response: {
+  "snake_id": 11
+}
+
+2026-01-17 15:44:57,296 - INFO - Snake created (ID=11)
+2026-01-17 15:44:59,355 - INFO - GET /snakes/11 | Status: 200 | Response: {
+  "common_name": "Test Cobra",
+  "description": "Created during automated testing",
+  "scientific_name": "Naja testus",
+  "snake_id": 11,
+  "venom_level": "high"
+}
+
+2026-01-17 15:44:59,356 - INFO - Single snake fetched successfully
+2026-01-17 15:45:01,437 - INFO - PUT /snakes/11 | Status: 200 | Response: {
+  "status": "updated"
+}
+
+2026-01-17 15:45:01,439 - INFO - Snake updated successfully
+2026-01-17 15:45:03,512 - INFO - POST /users | Status: 200 | Response: {
+  "user_id": 3
+}
+
+2026-01-17 15:45:03,513 - INFO - User creation handled correctly
+2026-01-17 15:45:05,595 - INFO - POST /attempts | Status: 200 | Response: {
+  "attempt_id": 5
+}
+
+2026-01-17 15:45:05,596 - INFO - Attempt logged successfully
+2026-01-17 15:45:07,666 - INFO - GET /attempts/1 | Status: 200 | Response: [
+  {
+    "attempt_id": 5,
+    "correct": true,
+    "snake_id": 11,
+    "timestamp": "2026-01-17T15:45:05.572985"
+  },
+  {
+    "attempt_id": 2,
+    "correct": false,
+    "snake_id": 3,
+    "timestamp": "2026-01-02 10:20:00"
+  },
+  {
+    "attempt_id": 1,
+    "correct": true,
+    "snake_id": 1,
+    "timestamp": "2026-01-02 10:15:00"
+  }
+]
+
+2026-01-17 15:45:07,668 - INFO - Attempts fetched successfully
+2026-01-17 15:45:09,748 - INFO - DELETE /snakes/11 | Status: 200 | Response: {
+  "status": "deleted"
+}
+
+2026-01-17 15:45:09,750 - INFO - Snake deleted successfully
+2026-01-17 15:45:09,750 - INFO - ==== TEST RUN COMPLETED SUCCESSFULLY ====
+2026-01-17 15:45:41,304 - INFO - ==== TEST RUN STARTED ====
+2026-01-17 15:45:43,354 - INFO - GET /health | Status: 200 | Response: {
+  "status": "ok"
+}
+
+2026-01-17 15:45:43,354 - INFO - Health check passed
+2026-01-17 15:45:45,418 - INFO - GET /features | Status: 200 | Response: [
+  {
+    "description": "Hood expands when threatened",
+    "feature_id": 1,
+    "name": "Hood present"
+  },
+  {
+    "description": "Head is distinctly triangular",
+    "feature_id": 2,
+    "name": "Triangular head"
+  },
+  {
+    "description": "Body has colored bands",
+    "feature_id": 3,
+    "name": "Bands on body"
+  },
+  {
+    "description": "Eyes have round pupils",
+    "feature_id": 4,
+    "name": "Round pupils"
+  },
+  {
+    "description": "Heat-sensing pit between eyes and nostrils",
+    "feature_id": 5,
+    "name": "Pit organ"
+  },
+  {
+    "description": "Scales on body are ridged",
+    "feature_id": 6,
+    "name": "Keel scales"
+  },
+  {
+    "description": "Tail has distinct color from body",
+    "feature_id": 7,
+    "name": "Tail color different"
+  }
+]
+
+2026-01-17 15:45:45,419 - INFO - Features fetched successfully
+2026-01-17 15:45:47,493 - INFO - GET /regions | Status: 200 | Response: [
+  {
+    "name": "Western Province",
+    "region_id": 1
+  },
+  {
+    "name": "Central Province",
+    "region_id": 2
+  },
+  {
+    "name": "Southern Province",
+    "region_id": 3
+  }
+]
+
+2026-01-17 15:45:47,495 - INFO - Regions fetched successfully
+2026-01-17 15:45:49,536 - INFO - GET /snakes | Status: 200 | Response: [
+  {
+    "common_name": "Common Cat Snake",
+    "description": "Mildly venomous, usually non-aggressive",
+    "scientific_name": "Boiga trigonata",
+    "snake_id": 1,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Ceylon Krait",
+    "description": "Highly venomous, nocturnal",
+    "scientific_name": "Bungarus ceylonicus",
+    "snake_id": 2,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Spectacled Cobra",
+    "description": "Venomous, hooded, found throughout Sri Lanka",
+    "scientific_name": "Naja naja",
+    "snake_id": 3,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Green Vine Snake",
+    "description": "Non-venomous, arboreal, thin green body",
+    "scientific_name": "Ahaetulla nasuta",
+    "snake_id": 4,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Russell's Viper",
+    "description": "Highly venomous, terrestrial",
+    "scientific_name": "Daboia russelii",
+    "snake_id": 5,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Ceylon Trinket Snake",
+    "description": "Non-venomous, active at night",
+    "scientific_name": "Coelognathus helena",
+    "snake_id": 6,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Common Sand Boa",
+    "description": "Non-venomous, burrowing snake",
+    "scientific_name": "Eryx conicus",
+    "snake_id": 7,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Starred Bronzeback",
+    "description": "Non-venomous, diurnal",
+    "scientific_name": "Dendrelaphis punctulatus",
+    "snake_id": 8,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Common Wolf Snake",
+    "description": "Mild venom, rarely dangerous to humans",
+    "scientific_name": "Lycodon aulicus",
+    "snake_id": 9,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Hump-nosed Pit Viper",
+    "description": "Venomous, small viper",
+    "scientific_name": "Hypnale hypnale",
+    "snake_id": 10,
+    "venom_level": "mild"
+  }
+]
+
+2026-01-17 15:45:49,537 - INFO - All snakes fetched successfully
+2026-01-17 15:45:51,619 - INFO - POST /snakes | Status: 201 | Response: {
+  "snake_id": 12
+}
+
+2026-01-17 15:45:51,620 - INFO - Snake created (ID=12)
+2026-01-17 15:45:53,661 - INFO - GET /snakes/12 | Status: 200 | Response: {
+  "common_name": "Test Cobra",
+  "description": "Created during automated testing",
+  "scientific_name": "Naja testus",
+  "snake_id": 12,
+  "venom_level": "high"
+}
+
+2026-01-17 15:45:53,661 - INFO - Single snake fetched successfully
+2026-01-17 15:45:55,713 - INFO - PUT /snakes/12 | Status: 200 | Response: {
+  "status": "updated"
+}
+
+2026-01-17 15:45:55,713 - INFO - Snake updated successfully
+2026-01-17 15:45:57,749 - INFO - POST /users | Status: 200 | Response: {
+  "user_id": null
+}
+
+2026-01-17 15:45:57,750 - INFO - User creation handled correctly
+2026-01-17 15:45:59,820 - INFO - POST /attempts | Status: 200 | Response: {
+  "attempt_id": 6
+}
+
+2026-01-17 15:45:59,820 - INFO - Attempt logged successfully
+2026-01-17 15:46:01,879 - INFO - GET /attempts/1 | Status: 200 | Response: [
+  {
+    "attempt_id": 6,
+    "correct": true,
+    "snake_id": 12,
+    "timestamp": "2026-01-17T15:45:59.801763"
+  },
+  {
+    "attempt_id": 2,
+    "correct": false,
+    "snake_id": 3,
+    "timestamp": "2026-01-02 10:20:00"
+  },
+  {
+    "attempt_id": 1,
+    "correct": true,
+    "snake_id": 1,
+    "timestamp": "2026-01-02 10:15:00"
+  }
+]
+
+2026-01-17 15:46:01,879 - INFO - Attempts fetched successfully
+2026-01-17 15:46:03,942 - INFO - DELETE /snakes/12 | Status: 200 | Response: {
+  "status": "deleted"
+}
+
+2026-01-17 15:46:03,942 - INFO - Snake deleted successfully
+2026-01-17 15:46:03,942 - INFO - ==== TEST RUN COMPLETED SUCCESSFULLY ====
+2026-01-17 16:15:21,625 - INFO - ==== TEST RUN STARTED ====
+2026-01-17 16:15:23,684 - INFO - GET /health | Status: 200 | Response: {
+  "status": "ok"
+}
+
+2026-01-17 16:15:23,684 - INFO - Health check passed
+2026-01-17 16:15:25,807 - INFO - GET /features | Status: 200 | Response: [
+  {
+    "description": "Hood expands when threatened",
+    "feature_id": 1,
+    "name": "Hood present"
+  },
+  {
+    "description": "Head is distinctly triangular",
+    "feature_id": 2,
+    "name": "Triangular head"
+  },
+  {
+    "description": "Body has colored bands",
+    "feature_id": 3,
+    "name": "Bands on body"
+  },
+  {
+    "description": "Eyes have round pupils",
+    "feature_id": 4,
+    "name": "Round pupils"
+  },
+  {
+    "description": "Heat-sensing pit between eyes and nostrils",
+    "feature_id": 5,
+    "name": "Pit organ"
+  },
+  {
+    "description": "Scales on body are ridged",
+    "feature_id": 6,
+    "name": "Keel scales"
+  },
+  {
+    "description": "Tail has distinct color from body",
+    "feature_id": 7,
+    "name": "Tail color different"
+  }
+]
+
+2026-01-17 16:15:25,808 - INFO - Features fetched successfully
+2026-01-17 16:15:27,840 - INFO - GET /regions | Status: 200 | Response: [
+  {
+    "name": "Western Province",
+    "region_id": 1
+  },
+  {
+    "name": "Central Province",
+    "region_id": 2
+  },
+  {
+    "name": "Southern Province",
+    "region_id": 3
+  }
+]
+
+2026-01-17 16:15:27,842 - INFO - Regions fetched successfully
+2026-01-17 16:15:29,879 - INFO - GET /snakes | Status: 200 | Response: [
+  {
+    "common_name": "Common Cat Snake",
+    "description": "Mildly venomous, usually non-aggressive",
+    "scientific_name": "Boiga trigonata",
+    "snake_id": 1,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Ceylon Krait",
+    "description": "Highly venomous, nocturnal",
+    "scientific_name": "Bungarus ceylonicus",
+    "snake_id": 2,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Spectacled Cobra",
+    "description": "Venomous, hooded, found throughout Sri Lanka",
+    "scientific_name": "Naja naja",
+    "snake_id": 3,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Green Vine Snake",
+    "description": "Non-venomous, arboreal, thin green body",
+    "scientific_name": "Ahaetulla nasuta",
+    "snake_id": 4,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Russell's Viper",
+    "description": "Highly venomous, terrestrial",
+    "scientific_name": "Daboia russelii",
+    "snake_id": 5,
+    "venom_level": "high"
+  },
+  {
+    "common_name": "Ceylon Trinket Snake",
+    "description": "Non-venomous, active at night",
+    "scientific_name": "Coelognathus helena",
+    "snake_id": 6,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Common Sand Boa",
+    "description": "Non-venomous, burrowing snake",
+    "scientific_name": "Eryx conicus",
+    "snake_id": 7,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Starred Bronzeback",
+    "description": "Non-venomous, diurnal",
+    "scientific_name": "Dendrelaphis punctulatus",
+    "snake_id": 8,
+    "venom_level": "non-venomous"
+  },
+  {
+    "common_name": "Common Wolf Snake",
+    "description": "Mild venom, rarely dangerous to humans",
+    "scientific_name": "Lycodon aulicus",
+    "snake_id": 9,
+    "venom_level": "mild"
+  },
+  {
+    "common_name": "Hump-nosed Pit Viper",
+    "description": "Venomous, small viper",
+    "scientific_name": "Hypnale hypnale",
+    "snake_id": 10,
+    "venom_level": "mild"
+  }
+]
+
+2026-01-17 16:15:29,880 - INFO - All snakes fetched successfully
+2026-01-17 16:15:31,944 - INFO - POST /snakes | Status: 201 | Response: {
+  "snake_id": 13
+}
+
+2026-01-17 16:15:31,944 - INFO - Snake created (ID=13)
+2026-01-17 16:15:33,995 - INFO - GET /snakes/13 | Status: 200 | Response: {
+  "common_name": "Test Cobra",
+  "description": "Created during automated testing",
+  "scientific_name": "Naja testus",
+  "snake_id": 13,
+  "venom_level": "high"
+}
+
+2026-01-17 16:15:33,995 - INFO - Single snake fetched successfully
+2026-01-17 16:15:36,046 - INFO - PUT /snakes/13 | Status: 200 | Response: {
+  "status": "updated"
+}
+
+2026-01-17 16:15:36,047 - INFO - Snake updated successfully
+2026-01-17 16:15:38,107 - INFO - POST /users | Status: 200 | Response: {
+  "user_id": null
+}
+
+2026-01-17 16:15:38,107 - INFO - User creation handled correctly
+2026-01-17 16:15:40,160 - INFO - POST /attempts | Status: 200 | Response: {
+  "attempt_id": 7
+}
+
+2026-01-17 16:15:40,160 - INFO - Attempt logged successfully
+2026-01-17 16:15:42,221 - INFO - GET /attempts/1 | Status: 200 | Response: [
+  {
+    "attempt_id": 7,
+    "correct": true,
+    "snake_id": 13,
+    "timestamp": "2026-01-17T16:15:40.148013"
+  },
+  {
+    "attempt_id": 2,
+    "correct": false,
+    "snake_id": 3,
+    "timestamp": "2026-01-02 10:20:00"
+  },
+  {
+    "attempt_id": 1,
+    "correct": true,
+    "snake_id": 1,
+    "timestamp": "2026-01-02 10:15:00"
+  }
+]
+
+2026-01-17 16:15:42,222 - INFO - Attempts fetched successfully
+2026-01-17 16:15:44,292 - INFO - DELETE /snakes/13 | Status: 200 | Response: {
+  "status": "deleted"
+}
+
+2026-01-17 16:15:44,292 - INFO - Snake deleted successfully
+2026-01-17 16:15:44,292 - INFO - ==== TEST RUN COMPLETED SUCCESSFULLY ====

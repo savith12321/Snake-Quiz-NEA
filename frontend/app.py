@@ -1,0 +1,88 @@
+import customtkinter as ctk
+import requests
+from pages.login_page import LoginPage
+from pages.signup_page import SignupPage
+from pages.home_page import HomePage
+from pages.add_snake_page import AddSnakePage
+
+API_BASE = "http://127.0.0.1:5000"
+
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
+
+
+class SnakeApp(ctk.CTk):
+    def __init__(self):
+        super().__init__()
+
+        self.title("Snake Identification System")
+        self.geometry("1030x600")
+        self.resizable(False, False)
+
+        self.token = None
+        self.role = None
+
+        self.protocol("WM_DELETE_WINDOW", self.on_close)
+
+        # Layout
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_rowconfigure(0, weight=1)
+
+        self.sidebar = ctk.CTkFrame(self, width=200, corner_radius=0)
+        self.sidebar.grid(row=0, column=0, sticky="ns")
+        self.sidebar.grid_rowconfigure(99, weight=1)
+
+        self.status_label = ctk.CTkLabel(self.sidebar, text="Not logged in", text_color="gray")
+        self.status_label.pack(pady=(0,20))
+
+        self.content = ctk.CTkFrame(self, corner_radius=0)
+        self.content.grid(row=0, column=1, sticky="nsew")
+
+        # Pages
+        self.pages = {}
+        for PageClass, name in [
+            (LoginPage, "login"),
+            (SignupPage, "signup"),
+            (HomePage, "home"),
+            (AddSnakePage, "add_snake"),
+        ]:
+            page = PageClass(self.content, self)
+            self.pages[name] = page
+            page.grid(row=0, column=0, sticky="nsew")
+
+        self.show_page("login")
+
+    def show_page(self, name):
+        page = self.pages[name]
+        print(page.get_sidebar_buttons())
+        page.tkraise()
+        self.draw_sidebar(page.get_sidebar_buttons())
+
+    def draw_sidebar(self, buttons):
+        for widget in self.sidebar.winfo_children():
+            if isinstance(widget, ctk.CTkButton):
+                widget.destroy()
+        for text, command in buttons:
+            ctk.CTkButton(self.sidebar, text=text, corner_radius=20, height=40, command=command).pack(padx=20, pady=8, fill="x")
+
+    def logout(self):
+        self.token = None
+        self.role = None
+        self.status_label.configure(text="Not logged in", text_color="gray")
+        self.show_page("login")
+
+    def api_logout(self):
+        if self.token:
+            try:
+                requests.post(f"{API_BASE}/auth/logout", headers={"Authorization": self.token}, timeout=3)
+            except:
+                pass
+
+    def on_close(self):
+        self.api_logout()
+        self.destroy()
+
+
+if __name__ == "__main__":
+    app = SnakeApp()
+    app.mainloop()
