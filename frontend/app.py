@@ -7,6 +7,7 @@ from pages.login_page import LoginPage
 from pages.signup_page import SignupPage
 from pages.home_page import HomePage
 from pages.add_snake_page import AddSnakePage
+from pages.update_delete_snake import UpdateDeleteSnakePage
 
 API_BASE = "http://127.0.0.1:5000"
 
@@ -50,6 +51,7 @@ class SnakeApp(ctk.CTk):
             (SignupPage, "signup"),
             (HomePage, "home"),
             (AddSnakePage, "add_snake"),
+            (UpdateDeleteSnakePage, "update_delete_snake"),
         ]:
             page = PageClass(self.content, self)
             self.pages[name] = page
@@ -59,6 +61,8 @@ class SnakeApp(ctk.CTk):
 
     def show_page(self, name):
         page = self.pages[name]
+        if name == "home":
+            page.load_snakes()
         page.tkraise()
         self.draw_sidebar(page.get_sidebar_buttons())
 

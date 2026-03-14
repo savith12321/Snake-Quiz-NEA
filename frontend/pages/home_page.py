@@ -81,6 +81,7 @@ class HomePage(ctk.CTkFrame):
         if self.controller.role == "admin":
             buttons += [
                 ("Add Snake", lambda: self.controller.show_page("add_snake")),
+                ("Manage Snakes", lambda: self.controller.show_page("update_delete_snake")),
             ]
         buttons += [("Logout", self.controller.logout)]
         return buttons
