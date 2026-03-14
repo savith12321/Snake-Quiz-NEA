@@ -48,13 +48,13 @@ class AddSnakePage(ctk.CTkFrame):
         }
         r = requests.post(f"{API_BASE}/snakes", json=data, headers=headers)
         if r.status_code != 201:
-            messagebox.showerror("Adding snake failed")
+            messagebox.showerror("Adding snake failed", r.text)
             return
-        messagebox.showinfo("Snake added")
+        messagebox.showinfo("Snake added", "The snake was added successfully")
         self.b64_images = []
 
     def get_sidebar_buttons(self):
         return [
             ("Home", lambda: self.controller.show_page("home")),
-            ("Quit", self.controller.quit)
+            ("logout", self.controller.logout)
         ]

@@ -173,3 +173,118 @@ def delete_snake(snake_id):
 
     db.delete_snake(snake_id)
     return jsonify({"status": "deleted"}), 200
+
+# ======================
+# ADD images to existing snake
+# ======================
+@snake_bp.route("/snakes/<int:snake_id>/images", methods=["POST"])
+@admin_required
+def add_snake_images(snake_id):
+    """
+    Expects JSON:
+    {
+        "images": [
+            { "image_base64": "iVBORw0KGgo..." },
+            ...
+        ]
+    }
+    Returns a list of newly created image_ids.
+    """
+    if not db.get_snake_by_id(snake_id):
+        return jsonify({"error": "Snake not found"}), 404
+
+    data = request.json
+    image_ids = []
+
+    for img in data.get("images", []):
+        image_b64 = img.get("image_base64")
+        if image_b64:
+            img_bytes = base64.b64decode(image_b64)
+            image_id = db.add_snake_image(snake_id, img_bytes)
+            image_ids.append(image_id)
+
+    if not image_ids:
+        return jsonify({"error": "No valid images provided"}), 400
+
+    return jsonify({"image_ids": image_ids}), 201
+
+
+# ======================
+# SET primary image
+# ======================
+@snake_bp.route("/snakes/<int:snake_id>/images/<int:image_id>/primary", methods=["PUT"])
+@admin_required
+def set_primary_image(snake_id, image_id):
+    """
+    Marks the given image as the primary image for the snake.
+    All other images for the snake are demoted to non-primary.
+    """
+    if not db.get_snake_by_id(snake_id):
+        return jsonify({"error": "Snake not found"}), 404
+
+    success = db.set_primary_snake_image(image_id)
+    if not success:
+        return jsonify({"error": "Image not found"}), 404
+
+    return jsonify({"status": "primary image updated"}), 200
+
+
+# ======================
+# DELETE a single image
+# ======================
+@snake_bp.route("/snakes/<int:snake_id>/images/<int:image_id>", methods=["DELETE"])
+@admin_required
+def delete_snake_image(snake_id, image_id):
+    """
+    Deletes a specific image by image_id.
+    Refuses if it is the only image for the snake (to avoid an imageless snake).
+    """
+    if not db.get_snake_by_id(snake_id):
+        return jsonify({"error": "Snake not found"}), 404
+
+    images = db.get_snake_images(snake_id)
+    real_images = [img for img in images if img["image_id"] is not None]
+
+    if len(real_images) <= 1:
+        return jsonify({"error": "Cannot delete the only image. Add another image first."}), 400
+
+    success = db.delete_snake_image(image_id)
+    if not success:
+        return jsonify({"error": "Image not found"}), 404
+
+    return jsonify({"status": "image deleted"}), 200
+
+# ======================
+# GET images for a snake
+# ======================
+@snake_bp.route("/snakes/<int:snake_id>/images", methods=["GET"])
+@token_required
+def get_snake_images(snake_id):
+    """
+    Returns all images for a snake as a list of base64-encoded objects.
+    {
+        "images": [
+            {
+                "image_id": 1,
+                "is_primary": true,
+                "image_base64": "iVBORw0KGgo..."
+            },
+            ...
+        ]
+    }
+    """
+    if not db.get_snake_by_id(snake_id):
+        return jsonify({"error": "Snake not found"}), 404
+
+    images = db.get_snake_images(snake_id)
+
+    return jsonify({
+        "images": [
+            {
+                "image_id": img.get("image_id"),
+                "is_primary": img.get("is_primary", False),
+                "image_base64": encode_image(img.get("image_data"))
+            }
+            for img in images
+        ]
+    }), 200

@@ -1,5 +1,8 @@
 import customtkinter as ctk
 import requests
+import io
+import base64
+from PIL import Image, ImageTk
 from pages.login_page import LoginPage
 from pages.signup_page import SignupPage
 from pages.home_page import HomePage
@@ -33,10 +36,12 @@ class SnakeApp(ctk.CTk):
         self.sidebar.grid_rowconfigure(99, weight=1)
 
         self.status_label = ctk.CTkLabel(self.sidebar, text="Not logged in", text_color="gray")
-        self.status_label.pack(pady=(0,20))
+        self.status_label.pack(pady=(0, 20))
 
         self.content = ctk.CTkFrame(self, corner_radius=0)
         self.content.grid(row=0, column=1, sticky="nsew")
+        self.content.grid_columnconfigure(0, weight=1)  # FIX: content fills full width
+        self.content.grid_rowconfigure(0, weight=1)     # FIX: content fills full height
 
         # Pages
         self.pages = {}
@@ -54,7 +59,6 @@ class SnakeApp(ctk.CTk):
 
     def show_page(self, name):
         page = self.pages[name]
-        print(page.get_sidebar_buttons())
         page.tkraise()
         self.draw_sidebar(page.get_sidebar_buttons())
 
@@ -64,6 +68,31 @@ class SnakeApp(ctk.CTk):
                 widget.destroy()
         for text, command in buttons:
             ctk.CTkButton(self.sidebar, text=text, corner_radius=20, height=40, command=command).pack(padx=20, pady=8, fill="x")
+
+    def show_snake_detail(self, snake):
+        popup = ctk.CTkToplevel(self)
+        popup.title(snake["common_name"])
+        popup.geometry("500x520")
+
+        ctk.CTkLabel(popup, text=snake["common_name"], font=ctk.CTkFont(size=20, weight="bold")).pack(pady=10)
+        ctk.CTkLabel(popup, text=f"Scientific: {snake['scientific_name']}").pack()
+        ctk.CTkLabel(popup, text=f"Venom: {snake['venom_level']}").pack()
+        ctk.CTkLabel(popup, text=f"Description: {snake.get('description', '')}").pack(pady=5)
+
+        images_frame = ctk.CTkFrame(popup)
+        images_frame.pack(pady=10)
+
+        popup.image_refs = []
+        for img_obj in snake.get("images", []):
+            img_b64 = img_obj.get("image_base64")
+            if img_b64:
+                img_bytes = base64.b64decode(img_b64)
+                pil_img = Image.open(io.BytesIO(img_bytes)).resize((150, 150))
+            else:
+                pil_img = Image.new("RGB", (150, 150), color="#3a3a3a")
+            tk_img = ImageTk.PhotoImage(pil_img)
+            ctk.CTkLabel(images_frame, image=tk_img, text="").pack(side="left", padx=5)
+            popup.image_refs.append(tk_img)
 
     def logout(self):
         self.token = None

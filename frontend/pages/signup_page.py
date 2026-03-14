@@ -35,6 +35,6 @@ class SignupPage(ctk.CTkFrame):
 
     def get_sidebar_buttons(self):
         return [
-            ("Login", lambda: self.controller.show_page("add_snake")),
+            ("Login", lambda: self.controller.show_page("login")),
             ("Quit", self.controller.quit)
         ]

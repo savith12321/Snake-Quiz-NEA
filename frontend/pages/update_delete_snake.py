@@ -23,10 +23,7 @@ class HomePage(ctk.CTkFrame):
         canvas = ctk.CTkCanvas(self, bg="#1e1e1e", highlightthickness=0)
         scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=canvas.yview)
         scroll_frame = ctk.CTkFrame(canvas, fg_color="#2a2a2a")
-        canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
-        canvas.configure(yscrollcommand=scrollbar.set)
         canvas.pack(side="left", fill="both", expand=True)
-        scrollbar.pack(side="right", fill="y")
 
         headers = {"Authorization": self.controller.token}
         r = requests.get(f"{API_BASE}/snakes", headers=headers)
