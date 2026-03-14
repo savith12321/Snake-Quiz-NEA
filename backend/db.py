@@ -15,18 +15,12 @@ class DatabaseManager:
     IMAGE_DIR = os.path.join(script_dir, "data", "images")
 
     def __init__(self, db_name="data/data.db"):
-        # Get script directory
         script_path = os.path.abspath(__file__)
         script_dir = os.path.dirname(script_path)
         self.db_name = os.path.join(script_dir, db_name)
 
-        # Ensure images directory exists
         os.makedirs(self.IMAGE_DIR, exist_ok=True)
-
-        # Apply schema at startup
         self.apply_schema()
-
-        # Delete expired tokens at startup
         self.delete_expired_tokens()
 
     # ======================
@@ -60,10 +54,6 @@ class DatabaseManager:
     # Snake methods
     # ======================
     def add_snake(self, snake: Snake, images=None):
-        """
-        Adds a snake to the DB.
-        images: list of bytes objects
-        """
         with self.get_connection() as conn:
             cur = conn.execute("""
                 INSERT INTO Snake (common_name, scientific_name, venom_level, description)
@@ -76,7 +66,6 @@ class DatabaseManager:
             ))
             snake_id = cur.lastrowid
 
-        # Save images if provided
         if images:
             for i, img_bytes in enumerate(images):
                 self.add_snake_image(
@@ -102,7 +91,6 @@ class DatabaseManager:
             ))
 
     def delete_snake(self, snake_id):
-        # Delete associated images from disk
         images = self.get_snake_images(snake_id)
         for img in images:
             if img["image_id"]:
@@ -283,15 +271,9 @@ class DatabaseManager:
     # Snake Images
     # ======================
     def add_snake_image(self, snake_id, image_bytes, is_primary=False):
-        """
-        Add an image to a snake.
-        Saves file to disk as IMAGE_DIR/<image_id>.png
-        Returns the image_id.
-        """
         os.makedirs(self.IMAGE_DIR, exist_ok=True)
 
         with self.get_connection() as conn:
-            # If it's the first image, force primary
             existing_count = conn.execute(
                 "SELECT COUNT(*) as cnt FROM SnakeImage WHERE snake_id = ?",
                 (snake_id,)
@@ -305,19 +287,16 @@ class DatabaseManager:
                     (snake_id,)
                 )
 
-            # Insert DB record (temporary file_path)
             cur = conn.execute("""
                 INSERT INTO SnakeImage (snake_id, file_path, is_primary, uploaded_at)
                 VALUES (?, ?, ?, ?)
             """, (snake_id, "temp", int(is_primary), datetime.now().isoformat()))
             image_id = cur.lastrowid
 
-            # Save file
             file_path = os.path.join(self.IMAGE_DIR, f"{image_id}.png")
             with open(file_path, "wb") as f:
                 f.write(image_bytes)
 
-            # Update DB with correct file_path
             conn.execute(
                 "UPDATE SnakeImage SET file_path = ? WHERE image_id = ?",
                 (file_path, image_id)
@@ -326,14 +305,6 @@ class DatabaseManager:
             return image_id
 
     def get_snake_images(self, snake_id):
-        """
-        Return all images for a snake as a list of dicts:
-        - image_id
-        - file_path
-        - is_primary
-        - image_data (bytes)
-        If no images exist, returns default.png.
-        """
         default_path = os.path.join(self.IMAGE_DIR, "default.png")
         os.makedirs(self.IMAGE_DIR, exist_ok=True)
         if not os.path.exists(default_path):
@@ -376,9 +347,6 @@ class DatabaseManager:
         return images
 
     def delete_snake_image(self, image_id):
-        """
-        Delete DB record and image file
-        """
         default_path = os.path.join(self.IMAGE_DIR, "default.png")
         with self.get_connection() as conn:
             row = conn.execute("SELECT file_path FROM SnakeImage WHERE image_id = ?", (image_id,)).fetchone()
@@ -392,31 +360,181 @@ class DatabaseManager:
         return True
 
     def set_primary_snake_image(self, image_id):
-        """
-        Set a specific image as primary for its snake
-        """
         with self.get_connection() as conn:
             row = conn.execute("SELECT snake_id FROM SnakeImage WHERE image_id = ?", (image_id,)).fetchone()
             if not row:
                 return False
             snake_id = row["snake_id"]
-
-            # Reset all to non-primary
             conn.execute("UPDATE SnakeImage SET is_primary = 0 WHERE snake_id = ?", (snake_id,))
             conn.execute("UPDATE SnakeImage SET is_primary = 1 WHERE image_id = ?", (image_id,))
             return True
-    # ======================
-    # Add multiple images to an existing snake
-    # ======================
+
     def add_snake_images(self, snake_id, images: list[bytes]):
-        """
-        Adds multiple images to an existing snake.
-        images: list of bytes
-        Returns a list of image_ids.
-        """
         image_ids = []
         for img_bytes in images:
             image_id = self.add_snake_image(snake_id, img_bytes)
             image_ids.append(image_id)
         return image_ids
 
+    # ======================
+    # Quiz - Questions
+    # ======================
+    def get_random_question(self, question_type=None):
+        with self.get_connection() as conn:
+            if question_type:
+                return conn.execute("""
+                    SELECT q.*, s.common_name, s.scientific_name, s.venom_level, s.description
+                    FROM Question q
+                    JOIN Snake s ON q.snake_id = s.snake_id
+                    WHERE q.question_type = ?
+                    ORDER BY RANDOM() LIMIT 1
+                """, (question_type,)).fetchone()
+            return conn.execute("""
+                SELECT q.*, s.common_name, s.scientific_name, s.venom_level, s.description
+                FROM Question q
+                JOIN Snake s ON q.snake_id = s.snake_id
+                ORDER BY RANDOM() LIMIT 1
+            """).fetchone()
+
+    def get_correct_answer(self, question_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT * FROM Answer
+                WHERE question_id = ? AND is_correct = 1
+                LIMIT 1
+            """, (question_id,)).fetchone()
+
+    def get_wrong_answers(self, question_type, exclude_snake_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT a.answer_id, a.answer_text
+                FROM Answer a
+                JOIN Question q ON a.question_id = q.question_id
+                WHERE q.question_type = ?
+                  AND q.snake_id != ?
+                  AND a.is_correct = 1
+                ORDER BY RANDOM()
+                LIMIT 3
+            """, (question_type, exclude_snake_id)).fetchall()
+
+    def get_answer(self, answer_id, question_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT * FROM Answer
+                WHERE answer_id = ? AND question_id = ?
+            """, (answer_id, question_id)).fetchone()
+
+    def get_question_by_id(self, question_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT * FROM Question WHERE question_id = ?
+            """, (question_id,)).fetchone()
+
+    def create_question(self, snake_id, question_type, question_text, correct_answer):
+        with self.get_connection() as conn:
+            cur = conn.execute("""
+                INSERT INTO Question (snake_id, question_type, question_text, created_at)
+                VALUES (?, ?, ?, ?)
+            """, (snake_id, question_type, question_text, datetime.now().isoformat()))
+            question_id = cur.lastrowid
+            conn.execute("""
+                INSERT INTO Answer (question_id, answer_text, is_correct)
+                VALUES (?, ?, 1)
+            """, (question_id, correct_answer))
+        return question_id
+
+    def delete_question(self, question_id):
+        with self.get_connection() as conn:
+            conn.execute("DELETE FROM Question WHERE question_id = ?", (question_id,))
+
+    def get_all_questions(self):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT q.question_id, q.question_type, q.question_text, q.created_at,
+                       s.common_name, s.snake_id
+                FROM Question q
+                JOIN Snake s ON q.snake_id = s.snake_id
+                ORDER BY q.created_at DESC
+            """).fetchall()
+
+    # ======================
+    # Quiz - Attempts
+    # ======================
+    def create_quiz_attempt(self, user_id, snake_id, question_id, answer_id, correct, quiz_id=None):
+        with self.get_connection() as conn:
+            cur = conn.execute("""
+                INSERT INTO Attempt (user_id, snake_id, question_id, answer_id, correct, timestamp, quiz_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (user_id, snake_id, question_id, answer_id, int(correct), datetime.now().isoformat(), quiz_id))
+            return cur.lastrowid
+
+    def get_quiz_history(self, user_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT
+                    a.attempt_id, a.correct, a.timestamp,
+                    s.common_name, s.snake_id,
+                    q.question_type, q.question_text,
+                    ans.answer_text AS chosen_answer
+                FROM Attempt a
+                JOIN Snake s ON a.snake_id = s.snake_id
+                LEFT JOIN Question q ON a.question_id = q.question_id
+                LEFT JOIN Answer ans ON a.answer_id = ans.answer_id
+                WHERE a.user_id = ?
+                ORDER BY a.timestamp DESC
+            """, (user_id,)).fetchall()
+
+    # ======================
+    # Quiz - Sessions
+    # ======================
+    def create_quiz(self, user_id):
+        with self.get_connection() as conn:
+            cur = conn.execute("""
+                INSERT INTO Quiz (user_id, score, total, started_at)
+                VALUES (?, 0, 10, ?)
+            """, (user_id, datetime.now().isoformat()))
+            return cur.lastrowid
+
+    def finish_quiz(self, quiz_id):
+        with self.get_connection() as conn:
+            row = conn.execute("""
+                SELECT COUNT(*) as score FROM Attempt
+                WHERE quiz_id = ? AND correct = 1
+            """, (quiz_id,)).fetchone()
+            score = row["score"]
+            conn.execute("""
+                UPDATE Quiz
+                SET score = ?, completed_at = ?
+                WHERE quiz_id = ?
+            """, (score, datetime.now().isoformat(), quiz_id))
+        return score
+
+    def get_quiz(self, quiz_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT * FROM Quiz WHERE quiz_id = ?
+            """, (quiz_id,)).fetchone()
+
+    def get_quiz_history_by_user(self, user_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT * FROM Quiz
+                WHERE user_id = ?
+                ORDER BY started_at DESC
+            """, (user_id,)).fetchall()
+
+    def get_attempts_for_quiz(self, quiz_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT
+                    a.attempt_id, a.correct, a.timestamp,
+                    s.common_name, s.snake_id,
+                    q.question_type, q.question_text,
+                    ans.answer_text AS chosen_answer
+                FROM Attempt a
+                JOIN Snake s ON a.snake_id = s.snake_id
+                LEFT JOIN Question q ON a.question_id = q.question_id
+                LEFT JOIN Answer ans ON a.answer_id = ans.answer_id
+                WHERE a.quiz_id = ?
+                ORDER BY a.timestamp ASC
+            """, (quiz_id,)).fetchall()

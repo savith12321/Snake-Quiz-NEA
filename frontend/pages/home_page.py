@@ -20,8 +20,12 @@ class HomePage(ctk.CTkFrame):
         if self.snake_canvas:
             self.snake_canvas.destroy()
 
-        canvas = ctk.CTkCanvas(self, bg="#1e1e1e", highlightthickness=0)
-        scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=canvas.yview)
+        container = ctk.CTkFrame(self, fg_color="#1e1e1e")
+        container.pack(side="left", fill="both", expand=True)
+        self.snake_canvas = container
+
+        canvas = ctk.CTkCanvas(container, bg="#1e1e1e", highlightthickness=0)
+        scrollbar = ctk.CTkScrollbar(container, orientation="vertical", command=canvas.yview)
         scroll_frame = ctk.CTkFrame(canvas, fg_color="#2a2a2a")
         canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
@@ -48,9 +52,9 @@ class HomePage(ctk.CTkFrame):
                 img_data = s.get("images", [{}])[0].get("image_base64")
                 if img_data:
                     img_bytes = base64.b64decode(img_data)
-                    pil_img = Image.open(io.BytesIO(img_bytes)).resize((150,150))
+                    pil_img = Image.open(io.BytesIO(img_bytes)).resize((150, 150))
                 else:
-                    pil_img = Image.new("RGB", (150,150), color="#555555")
+                    pil_img = Image.new("RGB", (150, 150), color="#555555")
                 tk_img = ImageTk.PhotoImage(pil_img)
                 self.snake_images.append(tk_img)
 
@@ -73,8 +77,7 @@ class HomePage(ctk.CTkFrame):
             scroll_frame.configure(width=columns*(frame_width+padding), height=((len(snakes)+columns-1)//columns)*(frame_height+padding))
             canvas.configure(scrollregion=canvas.bbox("all"))
 
-        self.after(50, place_snakes)
-        self.snake_canvas = canvas
+        self.after(25, place_snakes)
 
     def get_sidebar_buttons(self):
         buttons = [("Home", lambda: self.controller.show_page("home"))]

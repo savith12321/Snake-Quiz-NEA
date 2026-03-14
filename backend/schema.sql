@@ -83,6 +83,8 @@ CREATE TABLE IF NOT EXISTS Attempt (
     attempt_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     snake_id INTEGER NOT NULL,
+    question_id INTEGER,
+    answer_id INTEGER,
     correct INTEGER NOT NULL CHECK (correct IN (0, 1)),
     timestamp TEXT NOT NULL,
     FOREIGN KEY (user_id)
@@ -90,7 +92,13 @@ CREATE TABLE IF NOT EXISTS Attempt (
         ON DELETE CASCADE,
     FOREIGN KEY (snake_id)
         REFERENCES Snake(snake_id)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (question_id)
+        REFERENCES Question(question_id)
+        ON DELETE SET NULL,
+    FOREIGN KEY (answer_id)
+        REFERENCES Answer(answer_id)
+        ON DELETE SET NULL
 );
 
 CREATE INDEX IF NOT EXISTS idx_attempt_user
@@ -132,3 +140,42 @@ CREATE TABLE IF NOT EXISTS SnakeImage (
 
 CREATE INDEX IF NOT EXISTS idx_snakeimage_snake
 ON SnakeImage(snake_id);
+
+-- ======================
+-- Question table
+-- ======================
+CREATE TABLE IF NOT EXISTS Question (
+    question_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    snake_id INTEGER NOT NULL,
+    question_type TEXT NOT NULL CHECK (
+        question_type IN ('identify_by_image', 'identify_by_description', 'venom_level', 'scientific_name')
+    ),
+    question_text TEXT,
+    created_at TEXT NOT NULL,
+    FOREIGN KEY (snake_id)
+        REFERENCES Snake(snake_id)
+        ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_question_snake
+ON Question(snake_id);
+
+CREATE INDEX IF NOT EXISTS idx_question_type
+ON Question(question_type);
+
+-- ======================
+-- Answer table
+-- ======================
+CREATE TABLE IF NOT EXISTS Answer (
+    answer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    question_id INTEGER NOT NULL,
+    answer_text TEXT NOT NULL,
+    is_correct INTEGER NOT NULL DEFAULT 0 CHECK (is_correct IN (0, 1)),
+    FOREIGN KEY (question_id)
+        REFERENCES Question(question_id)
+        ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_answer_question
+ON Answer(question_id);
+

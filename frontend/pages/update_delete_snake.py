@@ -21,8 +21,12 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
         if self.snake_canvas:
             self.snake_canvas.destroy()
 
-        canvas = ctk.CTkCanvas(self, bg="#1e1e1e", highlightthickness=0)
-        scrollbar = ctk.CTkScrollbar(self, orientation="vertical", command=canvas.yview)
+        container = ctk.CTkFrame(self, fg_color="#1e1e1e")
+        container.pack(side="left", fill="both", expand=True)
+        self.snake_canvas = container
+
+        canvas = ctk.CTkCanvas(container, bg="#1e1e1e", highlightthickness=0)
+        scrollbar = ctk.CTkScrollbar(container, orientation="vertical", command=canvas.yview)
         scroll_frame = ctk.CTkFrame(canvas, fg_color="#2a2a2a")
         canvas.create_window((0, 0), window=scroll_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
@@ -84,7 +88,6 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
             canvas.configure(scrollregion=canvas.bbox("all"))
 
         self.after(50, place_snakes)
-        self.snake_canvas = canvas
 
     # ======================
     # Edit Popup
@@ -95,7 +98,6 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
         popup.geometry("560x700")
         popup.grab_set()
 
-        # --- Snake fields ---
         ctk.CTkLabel(popup, text="Edit Snake Details", font=ctk.CTkFont(size=16, weight="bold")).pack(pady=(15, 5))
 
         fields_frame = ctk.CTkFrame(popup)
@@ -128,14 +130,12 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
             r = requests.put(f"{API_BASE}/snakes/{snake['snake_id']}", json=data, headers=headers)
             if r.status_code == 200:
                 messagebox.showinfo("Saved", "Snake details updated.", parent=popup)
-                # Refresh the grid in background
                 self.after(100, self.load_snakes)
             else:
                 messagebox.showerror("Error", r.text, parent=popup)
 
         ctk.CTkButton(popup, text="Save Details", fg_color="#2a7a2a", command=save_details).pack(pady=(8, 4))
 
-        # --- Danger zone: delete snake ---
         def delete_snake():
             if not messagebox.askyesno(
                 "Confirm Delete",
@@ -159,7 +159,6 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
 
         ctk.CTkLabel(popup, text="Images", font=ctk.CTkFont(size=15, weight="bold")).pack(pady=(5, 2))
 
-        # --- Images section ---
         images_outer = ctk.CTkScrollableFrame(popup, height=200)
         images_outer.pack(padx=20, fill="x")
 
@@ -182,7 +181,6 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
                 row = ctk.CTkFrame(images_outer, fg_color="#2e2e2e")
                 row.pack(fill="x", pady=4, padx=4)
 
-                # Thumbnail
                 img_b64 = img_obj.get("image_base64")
                 if img_b64:
                     img_bytes = base64.b64decode(img_b64)
@@ -194,7 +192,6 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
 
                 ctk.CTkLabel(row, image=tk_img, text="").pack(side="left", padx=6, pady=4)
 
-                # Primary badge
                 badge_text = "★ Primary" if img_obj.get("is_primary") else ""
                 ctk.CTkLabel(row, text=badge_text, text_color="#f0c040", width=80).pack(side="left")
 
@@ -203,7 +200,6 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
 
                 image_id = img_obj.get("image_id")
 
-                # Set primary button (only show if not already primary)
                 if not img_obj.get("is_primary") and image_id:
                     def make_primary(iid=image_id):
                         headers = {"Authorization": self.controller.token}
@@ -221,7 +217,6 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
                         fg_color="#2a6aad", command=make_primary
                     ).pack(side="left", padx=4)
 
-                # Delete image button
                 if image_id:
                     def delete_image(iid=image_id):
                         headers = {"Authorization": self.controller.token}
@@ -242,7 +237,6 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
 
         refresh_images()
 
-        # --- Add images ---
         def add_images():
             file_paths = filedialog.askopenfilenames(
                 parent=popup,
@@ -271,9 +265,8 @@ class UpdateDeleteSnakePage(ctk.CTkFrame):
         ctk.CTkButton(popup, text="+ Add Images", command=add_images).pack(pady=10)
 
     def get_sidebar_buttons(self):
-        buttons = [
+        return [
             ("Home", lambda: self.controller.show_page("home")),
             ("Manage Snakes", lambda: self.controller.show_page("update_delete_snake")),
+            ("Logout", self.controller.logout),
         ]
-        buttons += [("Logout", self.controller.logout)]
-        return buttons
