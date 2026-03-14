@@ -60,7 +60,8 @@ def login():
     return jsonify({
         "token": token,
         "expires_at": expires_at,
-        "role": user.role
+        "role": user.role,
+        "user_id": user.user_id
     })
 
 

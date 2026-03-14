@@ -379,9 +379,25 @@ class DatabaseManager:
     # ======================
     # Quiz - Questions
     # ======================
-    def get_random_question(self, question_type=None):
+    def get_random_question(self, question_type=None, difficulty=None):
         with self.get_connection() as conn:
-            if question_type:
+            if question_type and difficulty:
+                return conn.execute("""
+                    SELECT q.*, s.common_name, s.scientific_name, s.venom_level, s.description
+                    FROM Question q
+                    JOIN Snake s ON q.snake_id = s.snake_id
+                    WHERE q.question_type = ? AND q.difficulty = ?
+                    ORDER BY RANDOM() LIMIT 1
+                """, (question_type, difficulty)).fetchone()
+            elif difficulty:
+                return conn.execute("""
+                    SELECT q.*, s.common_name, s.scientific_name, s.venom_level, s.description
+                    FROM Question q
+                    JOIN Snake s ON q.snake_id = s.snake_id
+                    WHERE q.difficulty = ?
+                    ORDER BY RANDOM() LIMIT 1
+                """, (difficulty,)).fetchone()
+            elif question_type:
                 return conn.execute("""
                     SELECT q.*, s.common_name, s.scientific_name, s.venom_level, s.description
                     FROM Question q
@@ -430,12 +446,12 @@ class DatabaseManager:
                 SELECT * FROM Question WHERE question_id = ?
             """, (question_id,)).fetchone()
 
-    def create_question(self, snake_id, question_type, question_text, correct_answer):
+    def create_question(self, snake_id, question_type, question_text, correct_answer, difficulty=1):
         with self.get_connection() as conn:
             cur = conn.execute("""
-                INSERT INTO Question (snake_id, question_type, question_text, created_at)
-                VALUES (?, ?, ?, ?)
-            """, (snake_id, question_type, question_text, datetime.now().isoformat()))
+                INSERT INTO Question (snake_id, question_type, question_text, difficulty, created_at)
+                VALUES (?, ?, ?, ?, ?)
+            """, (snake_id, question_type, question_text, difficulty, datetime.now().isoformat()))
             question_id = cur.lastrowid
             conn.execute("""
                 INSERT INTO Answer (question_id, answer_text, is_correct)
@@ -450,8 +466,8 @@ class DatabaseManager:
     def get_all_questions(self):
         with self.get_connection() as conn:
             return conn.execute("""
-                SELECT q.question_id, q.question_type, q.question_text, q.created_at,
-                       s.common_name, s.snake_id
+                SELECT q.question_id, q.question_type, q.question_text, q.difficulty, q.created_at,
+                    s.common_name, s.snake_id
                 FROM Question q
                 JOIN Snake s ON q.snake_id = s.snake_id
                 ORDER BY q.created_at DESC

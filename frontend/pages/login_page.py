@@ -31,7 +31,8 @@ class LoginPage(ctk.CTkFrame):
         res = r.json()
         self.controller.token = res["token"]
         self.controller.role = res["role"]
-
+        self.controller.user_id = res["user_id"]
+        print(self.controller.user_id)
         self.controller.status_label.configure(
             text=f"Logged in ({self.controller.role})",
             text_color="lightgreen"

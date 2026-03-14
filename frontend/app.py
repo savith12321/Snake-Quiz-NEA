@@ -8,6 +8,9 @@ from pages.signup_page import SignupPage
 from pages.home_page import HomePage
 from pages.add_snake_page import AddSnakePage
 from pages.update_delete_snake import UpdateDeleteSnakePage
+from pages.quiz_page import QuizPage
+from pages.add_question_page import AddQuestionPage
+from pages.quiz_history_page import QuizHistoryPage
 
 API_BASE = "http://127.0.0.1:5000"
 
@@ -25,10 +28,10 @@ class SnakeApp(ctk.CTk):
 
         self.token = None
         self.role = None
+        self.user_id = None
 
         self.protocol("WM_DELETE_WINDOW", self.on_close)
 
-        # Layout
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
@@ -41,10 +44,9 @@ class SnakeApp(ctk.CTk):
 
         self.content = ctk.CTkFrame(self, corner_radius=0)
         self.content.grid(row=0, column=1, sticky="nsew")
-        self.content.grid_columnconfigure(0, weight=1)  # FIX: content fills full width
-        self.content.grid_rowconfigure(0, weight=1)     # FIX: content fills full height
+        self.content.grid_columnconfigure(0, weight=1)
+        self.content.grid_rowconfigure(0, weight=1)
 
-        # Pages
         self.pages = {}
         for PageClass, name in [
             (LoginPage, "login"),
@@ -52,6 +54,9 @@ class SnakeApp(ctk.CTk):
             (HomePage, "home"),
             (AddSnakePage, "add_snake"),
             (UpdateDeleteSnakePage, "update_delete_snake"),
+            (QuizPage, "quiz"),
+            (AddQuestionPage, "add_question"),
+            (QuizHistoryPage, "quiz_history"),
         ]:
             page = PageClass(self.content, self)
             self.pages[name] = page
@@ -60,9 +65,23 @@ class SnakeApp(ctk.CTk):
         self.show_page("login")
 
     def show_page(self, name):
-        page = self.pages[name]
-        if name == "home":
-            page.load_snakes()
+        old_page = self.pages[name]
+        old_page.destroy()
+
+        PageClass = {
+            "login": LoginPage,
+            "signup": SignupPage,
+            "home": HomePage,
+            "add_snake": AddSnakePage,
+            "update_delete_snake": UpdateDeleteSnakePage,
+            "quiz": QuizPage,
+            "add_question": AddQuestionPage,
+            "quiz_history": QuizHistoryPage,
+        }[name]
+
+        page = PageClass(self.content, self)
+        self.pages[name] = page
+        page.grid(row=0, column=0, sticky="nsew")
         page.tkraise()
         self.draw_sidebar(page.get_sidebar_buttons())
 
@@ -101,6 +120,7 @@ class SnakeApp(ctk.CTk):
     def logout(self):
         self.token = None
         self.role = None
+        self.user_id = None
         self.status_label.configure(text="Not logged in", text_color="gray")
         self.show_page("login")
 
