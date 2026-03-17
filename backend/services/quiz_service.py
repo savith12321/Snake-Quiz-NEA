@@ -29,7 +29,7 @@ def get_question():
     if not correct_answer:
         return jsonify({"error": "Question has no correct answer set"}), 500
 
-    wrong_answers = db.get_wrong_answers(row["question_type"], row["snake_id"])
+    wrong_answers = db.get_wrong_answers(row["question_type"], row["snake_id"], correct_answer["answer_text"])
     if len(wrong_answers) < 3:
         return jsonify({"error": "Not enough questions of this type to generate choices"}), 400
 
@@ -75,22 +75,16 @@ def _encode_images(images):
 @quiz_bp.route("/quiz/answer", methods=["POST"])
 @token_required
 def submit_answer():
-    """
-    {
-        "user_id": 1,
-        "question_id": 3,
-        "answer_id": 7,
-        "quiz_id": 1        <-- optional, include if part of a quiz session
-    }
-    """
     data = request.json
     question = db.get_question_by_id(data["question_id"])
-    answer = db.get_answer(data["answer_id"], data["question_id"])
+    answer = db.get_answer(data["answer_id"])
 
     if not question or not answer:
         return jsonify({"error": "Invalid question or answer"}), 400
 
-    correct = bool(answer["is_correct"])
+    correct_answer = db.get_correct_answer(data["question_id"])
+    correct = (data["answer_id"] == correct_answer["answer_id"])
+
     attempt_id = db.create_quiz_attempt(
         user_id=data["user_id"],
         snake_id=question["snake_id"],
@@ -99,8 +93,6 @@ def submit_answer():
         correct=correct,
         quiz_id=data.get("quiz_id")
     )
-
-    correct_answer = db.get_correct_answer(data["question_id"])
 
     return jsonify({
         "attempt_id": attempt_id,

@@ -420,25 +420,26 @@ class DatabaseManager:
                 LIMIT 1
             """, (question_id,)).fetchone()
 
-    def get_wrong_answers(self, question_type, exclude_snake_id):
+    def get_wrong_answers(self, question_type, exclude_snake_id, correct_answer_text):
         with self.get_connection() as conn:
             return conn.execute("""
                 SELECT a.answer_id, a.answer_text
                 FROM Answer a
                 JOIN Question q ON a.question_id = q.question_id
                 WHERE q.question_type = ?
-                  AND q.snake_id != ?
-                  AND a.is_correct = 1
+                AND q.snake_id != ?
+                AND a.is_correct = 1
+                AND a.answer_text != ?
                 ORDER BY RANDOM()
                 LIMIT 3
-            """, (question_type, exclude_snake_id)).fetchall()
+            """, (question_type, exclude_snake_id, correct_answer_text)).fetchall()
 
-    def get_answer(self, answer_id, question_id):
+    def get_answer(self, answer_id):
         with self.get_connection() as conn:
             return conn.execute("""
                 SELECT * FROM Answer
-                WHERE answer_id = ? AND question_id = ?
-            """, (answer_id, question_id)).fetchone()
+                WHERE answer_id = ?
+            """, (answer_id,)).fetchone()
 
     def get_question_by_id(self, question_id):
         with self.get_connection() as conn:
