@@ -72,7 +72,8 @@ CREATE TABLE IF NOT EXISTS User (
     username TEXT NOT NULL UNIQUE,
     role TEXT NOT NULL CHECK (role IN ('admin', 'user')),
     password_hash TEXT NOT NULL,
-    created_at TEXT NOT NULL
+    created_at TEXT NOT NULL,
+    exp INTEGER 
 );
 
 -- ======================

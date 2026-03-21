@@ -96,13 +96,14 @@ class QuizHistoryPage(ctk.CTkFrame):
                 command=lambda qid=q["quiz_id"]: self._show_attempts(qid)
             ).pack(side="right", padx=10, pady=6)
     def _delete_attempt(self, quiz_id):
-        r = requests.delete(f"{API_BASE}/quiz/attempts/{str(quiz_id)}", 
+        r = requests.delete(
+            f"{API_BASE}/quiz/attempts/{quiz_id}",
             headers={"Authorization": self.controller.token}
         )
         if r.status_code != 200:
             messagebox.showerror("Error", r.text)
             return
-        self._load_history
+        self._load_history() 
             
     def _show_attempts(self, quiz_id):
         r = requests.get(

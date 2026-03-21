@@ -88,8 +88,9 @@ class HomePage(ctk.CTkFrame):
                 ("Add Question", lambda: self.controller.show_page("add_question")),
             ]
         buttons += [
-            ("Start Quiz", lambda: self.controller.show_page("quiz")),
+            ("Start Quiz",   lambda: self.controller.show_page("quiz")),
             ("Quiz History", lambda: self.controller.show_page("quiz_history")),
-            ("Logout", self.controller.logout),
+            ("Leaderboard",  lambda: self.controller.show_page("leaderboard")),  # add this
+            ("Logout",       self.controller.logout),
         ]
         return buttons

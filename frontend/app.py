@@ -11,6 +11,7 @@ from pages.update_delete_snake import UpdateDeleteSnakePage
 from pages.quiz_page import QuizPage
 from pages.add_question_page import AddQuestionPage
 from pages.quiz_history_page import QuizHistoryPage
+from pages.leaderboard_page import LeaderboardPage
 
 API_BASE = "http://127.0.0.1:5000"
 
@@ -57,6 +58,7 @@ class SnakeApp(ctk.CTk):
             (QuizPage, "quiz"),
             (AddQuestionPage, "add_question"),
             (QuizHistoryPage, "quiz_history"),
+            (LeaderboardPage, "leaderboard"),
         ]:
             page = PageClass(self.content, self)
             self.pages[name] = page
@@ -77,6 +79,7 @@ class SnakeApp(ctk.CTk):
             "quiz": QuizPage,
             "add_question": AddQuestionPage,
             "quiz_history": QuizHistoryPage,
+            "leaderboard": LeaderboardPage
         }[name]
 
         page = PageClass(self.content, self)

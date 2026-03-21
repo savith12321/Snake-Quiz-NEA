@@ -555,15 +555,29 @@ class DatabaseManager:
                 WHERE a.quiz_id = ?
                 ORDER BY a.timestamp ASC
             """, (quiz_id,)).fetchall()
-
-    def get_attempt_by_id(self, attempt_id):
+        
+    def delete_quiz(self, quiz_id):
         with self.get_connection() as conn:
-            return conn.execute("""
-                SELECT * FROM Attempt WHERE attempt_id = ?
-            """, (attempt_id,)).fetchone()
-
-    def delete_attempt(self, attempt_id):
+            conn.execute("DELETE FROM Attempt WHERE quiz_id = ?", (quiz_id,))
+            conn.execute("DELETE FROM Quiz WHERE quiz_id = ?", (quiz_id,))\
+    
+    def get_quiz_difficulty_sum(self, quiz_id):
         with self.get_connection() as conn:
-            conn.execute("DELETE FROM Quiz WHERE attempt_id = ?", (attempt_id,))
-            conn.commit()
-            print("Deleted attempt", attempt_id)
+            row = conn.execute("""
+                SELECT COALESCE(SUM(q.difficulty), 0) AS difficulty_sum
+                FROM Attempt a
+                JOIN Question q ON a.question_id = q.question_id
+                WHERE a.quiz_id = ?
+            """, (quiz_id,)).fetchone()
+        return row["difficulty_sum"]
+    
+    def add_exp(self, user_id, ammout):
+        with self.get_connection() as conn:
+            conn.execute("UPDATE User SET exp = exp + ? WHERE user_id= ?", (ammout, user_id,))
+    
+    def get_all_users_exp(self):
+        with self.get_connection() as conn:
+            rows = conn.execute("""
+                SELECT user_id, username, exp FROM User
+            """).fetchall()
+        return [{"user_id": row["user_id"], "username": row["username"], "exp": row["exp"]} for row in rows]
