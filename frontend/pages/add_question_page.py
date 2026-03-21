@@ -11,9 +11,13 @@ class AddQuestionPage(ctk.CTkFrame):
         self.controller = controller
         self.snakes = []
 
-        ctk.CTkLabel(self, text="Add Quiz Question", font=ctk.CTkFont(size=22, weight="bold")).pack(pady=20)
+        # Scrollable container for the whole page
+        scroll = ctk.CTkScrollableFrame(self, fg_color="transparent")
+        scroll.pack(fill="both", expand=True, padx=0, pady=0)
 
-        form = ctk.CTkFrame(self)
+        ctk.CTkLabel(scroll, text="Add Quiz Question", font=ctk.CTkFont(size=22, weight="bold")).pack(pady=20)
+
+        form = ctk.CTkFrame(scroll)
         form.pack(padx=40, pady=10, fill="x")
 
         # Snake picker
@@ -46,12 +50,12 @@ class AddQuestionPage(ctk.CTkFrame):
         self.answer_entry = ctk.CTkEntry(form, placeholder_text="e.g. Spectacled Cobra", width=400)
         self.answer_entry.pack(pady=4)
 
-        ctk.CTkButton(self, text="Add Question", command=self._add_question, fg_color="#2a7a2a").pack(pady=20)
+        ctk.CTkButton(scroll, text="Add Question", command=self._add_question, fg_color="#2a7a2a").pack(pady=20)
 
         # Questions list
-        ctk.CTkLabel(self, text="Existing Questions", font=ctk.CTkFont(size=16, weight="bold")).pack(pady=(10, 5))
-        self.questions_frame = ctk.CTkScrollableFrame(self, height=200)
-        self.questions_frame.pack(padx=20, fill="x")
+        ctk.CTkLabel(scroll, text="Existing Questions", font=ctk.CTkFont(size=16, weight="bold")).pack(pady=(10, 5))
+        self.questions_frame = ctk.CTkScrollableFrame(scroll, height=400)
+        self.questions_frame.pack(padx=20, fill="x", pady=(0, 20))
 
         self._load_snakes()
         self._load_questions()

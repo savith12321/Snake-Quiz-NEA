@@ -256,3 +256,26 @@ def get_all_questions():
 def delete_question(question_id):
     db.delete_question(question_id)
     return jsonify({"status": "deleted"}), 200
+
+
+# ======================
+# DELETE a quiz attempt (admin or own attempt)
+# ======================
+@quiz_bp.route("/quiz/attempts/<int:attempt_id>", methods=["DELETE"])
+@token_required
+def delete_attempt(attempt_id):
+    token = request.headers.get("Authorization")
+    token_row = db.get_token(token)
+
+    attempt = db.get_attempt_by_id(attempt_id)
+    if not attempt:
+        return jsonify({"error": "Attempt not found"}), 404
+
+    is_admin = token_row["role"] == "admin"
+    is_own = attempt["user_id"] == token_row["user_id"]
+
+    if not is_admin and not is_own:
+        return jsonify({"error": "Unauthorized"}), 403
+
+    db.delete_attempt(attempt_id)
+    return jsonify({"status": "deleted"}), 200

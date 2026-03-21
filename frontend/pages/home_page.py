@@ -13,7 +13,7 @@ class HomePage(ctk.CTkFrame):
         self.snake_canvas = None
         self.snake_images = []
 
-        ctk.CTkLabel(self, text="All Snakes", font=ctk.CTkFont(size=22, weight="bold")).pack(pady=20)
+        ctk.CTkLabel(self, text="Information Hub", font=ctk.CTkFont(size=22, weight="bold")).pack(pady=20)
         self.load_snakes()
 
     def load_snakes(self):

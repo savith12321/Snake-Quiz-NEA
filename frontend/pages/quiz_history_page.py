@@ -87,12 +87,23 @@ class QuizHistoryPage(ctk.CTkFrame):
                 font=ctk.CTkFont(size=16, weight="bold"),
                 text_color=score_color
             ).pack(side="left", padx=10)
-
+            ctk.CTkButton(
+                row, text="Delete Quiz Attempt", width=100, height=28, fg_color="#8b0000", hover_color="#b22222",
+                command=lambda qid=q["quiz_id"]: self._delete_attempt(qid)
+            ).pack(side="right", padx=10, pady=6)
             ctk.CTkButton(
                 row, text="View Answers", width=100, height=28,
                 command=lambda qid=q["quiz_id"]: self._show_attempts(qid)
             ).pack(side="right", padx=10, pady=6)
-
+    def _delete_attempt(self, quiz_id):
+        r = requests.delete(f"{API_BASE}/quiz/attempts/{str(quiz_id)}", 
+            headers={"Authorization": self.controller.token}
+        )
+        if r.status_code != 200:
+            messagebox.showerror("Error", r.text)
+            return
+        self._load_history
+            
     def _show_attempts(self, quiz_id):
         r = requests.get(
             f"{API_BASE}/quiz/{quiz_id}/attempts",

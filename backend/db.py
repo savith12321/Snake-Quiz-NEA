@@ -555,3 +555,15 @@ class DatabaseManager:
                 WHERE a.quiz_id = ?
                 ORDER BY a.timestamp ASC
             """, (quiz_id,)).fetchall()
+
+    def get_attempt_by_id(self, attempt_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT * FROM Attempt WHERE attempt_id = ?
+            """, (attempt_id,)).fetchone()
+
+    def delete_attempt(self, attempt_id):
+        with self.get_connection() as conn:
+            conn.execute("DELETE FROM Quiz WHERE attempt_id = ?", (attempt_id,))
+            conn.commit()
+            print("Deleted attempt", attempt_id)
