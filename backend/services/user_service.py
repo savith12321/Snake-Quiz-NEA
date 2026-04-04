@@ -3,20 +3,20 @@ from datetime import datetime
 from db import DatabaseManager
 from models.User import User
 from services.auth_utils import token_required, admin_required
-
+from werkzeug.security import generate_password_hash
 user_bp = Blueprint("users", __name__)
 db = DatabaseManager()
 
 @user_bp.route("/users", methods=["POST"])
-@admin_required
+#@admin_required
 def create_user():
     data = request.json
-
+    password_hash = generate_password_hash(data["password"])
     user = User(
         user_id=None,
         username=data["username"],
         role = data["role"],
-        password_hash=data["password_hash"],
+        password_hash=password_hash,
         created_at=datetime.now().isoformat()
     )
 

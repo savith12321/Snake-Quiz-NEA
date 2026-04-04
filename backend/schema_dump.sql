@@ -1,9 +1,4 @@
-PRAGMA foreign_keys = ON;
-
--- ======================
--- Snake table
--- ======================
-CREATE TABLE IF NOT EXISTS Snake (
+CREATE TABLE Snake (
     snake_id INTEGER PRIMARY KEY AUTOINCREMENT,
     common_name TEXT NOT NULL,
     scientific_name TEXT NOT NULL,
@@ -12,14 +7,10 @@ CREATE TABLE IF NOT EXISTS Snake (
     ),
     description TEXT
 );
-
-CREATE UNIQUE INDEX IF NOT EXISTS idx_snake_unique
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE UNIQUE INDEX idx_snake_unique
 ON Snake(common_name, scientific_name);
-
--- ======================
--- User table
--- ======================
-CREATE TABLE IF NOT EXISTS User (
+CREATE TABLE User (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL UNIQUE,
     role TEXT NOT NULL CHECK (role IN ('admin', 'user')),
@@ -27,11 +18,7 @@ CREATE TABLE IF NOT EXISTS User (
     created_at TEXT NOT NULL,
     exp INTEGER 
 );
-
--- ======================
--- Question table
--- ======================
-CREATE TABLE IF NOT EXISTS Question (
+CREATE TABLE Question (
     question_id INTEGER PRIMARY KEY AUTOINCREMENT,
     snake_id INTEGER NOT NULL,
     question_type TEXT NOT NULL CHECK (
@@ -44,17 +31,11 @@ CREATE TABLE IF NOT EXISTS Question (
         REFERENCES Snake(snake_id)
         ON DELETE CASCADE
 );
-
-CREATE INDEX IF NOT EXISTS idx_question_snake
+CREATE INDEX idx_question_snake
 ON Question(snake_id);
-
-CREATE INDEX IF NOT EXISTS idx_question_type
+CREATE INDEX idx_question_type
 ON Question(question_type);
-
--- ======================
--- Answer table
--- ======================
-CREATE TABLE IF NOT EXISTS Answer (
+CREATE TABLE Answer (
     answer_id INTEGER PRIMARY KEY AUTOINCREMENT,
     question_id INTEGER NOT NULL,
     answer_text TEXT NOT NULL,
@@ -63,14 +44,9 @@ CREATE TABLE IF NOT EXISTS Answer (
         REFERENCES Question(question_id)
         ON DELETE CASCADE
 );
-
-CREATE INDEX IF NOT EXISTS idx_answer_question
+CREATE INDEX idx_answer_question
 ON Answer(question_id);
-
--- ======================
--- Quiz table
--- ======================
-CREATE TABLE IF NOT EXISTS Quiz (
+CREATE TABLE Quiz (
     quiz_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     score INTEGER NOT NULL DEFAULT 0,
@@ -81,14 +57,9 @@ CREATE TABLE IF NOT EXISTS Quiz (
         REFERENCES User(user_id)
         ON DELETE CASCADE
 );
-
-CREATE INDEX IF NOT EXISTS idx_quiz_user
+CREATE INDEX idx_quiz_user
 ON Quiz(user_id);
-
--- ======================
--- Attempt table
--- ======================
-CREATE TABLE IF NOT EXISTS Attempt (
+CREATE TABLE Attempt (
     attempt_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     snake_id INTEGER NOT NULL,
@@ -113,14 +84,9 @@ CREATE TABLE IF NOT EXISTS Attempt (
         REFERENCES Quiz(quiz_id)
         ON DELETE SET NULL
 );
-
-CREATE INDEX IF NOT EXISTS idx_attempt_user
+CREATE INDEX idx_attempt_user
 ON Attempt(user_id);
-
--- ======================
--- AuthToken table
--- ======================
-CREATE TABLE IF NOT EXISTS AuthToken (
+CREATE TABLE AuthToken (
     token TEXT PRIMARY KEY,
     user_id INTEGER NOT NULL,
     role TEXT NOT NULL CHECK (role IN ('admin', 'user')),
@@ -130,17 +96,11 @@ CREATE TABLE IF NOT EXISTS AuthToken (
         REFERENCES User(user_id)
         ON DELETE CASCADE
 );
-
-CREATE INDEX IF NOT EXISTS idx_authtoken_user
+CREATE INDEX idx_authtoken_user
 ON AuthToken(user_id);
-
-CREATE INDEX IF NOT EXISTS idx_authtoken_expires
+CREATE INDEX idx_authtoken_expires
 ON AuthToken(expires_at);
-
--- ======================
--- SnakeImage table
--- ======================
-CREATE TABLE IF NOT EXISTS SnakeImage (
+CREATE TABLE SnakeImage (
     image_id INTEGER PRIMARY KEY AUTOINCREMENT,
     snake_id INTEGER NOT NULL,
     file_path TEXT NOT NULL,
@@ -150,6 +110,5 @@ CREATE TABLE IF NOT EXISTS SnakeImage (
         REFERENCES Snake(snake_id)
         ON DELETE CASCADE
 );
-
-CREATE INDEX IF NOT EXISTS idx_snakeimage_snake
-ON SnakeImage(snake_id); 
+CREATE INDEX idx_snakeimage_snake
+ON SnakeImage(snake_id);

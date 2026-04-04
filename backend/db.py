@@ -3,8 +3,6 @@ import os
 from datetime import datetime
 
 from models.Snake import Snake
-from models.Feature import Feature
-from models.Region import Region
 from models.Attempt import Attempt
 from models.User import User
 
@@ -100,8 +98,6 @@ class DatabaseManager:
                     pass
 
         with self.get_connection() as conn:
-            conn.execute("DELETE FROM SnakeFeature WHERE snake_id = ?", (snake_id,))
-            conn.execute("DELETE FROM SnakeRegion WHERE snake_id = ?", (snake_id,))
             conn.execute("DELETE FROM SnakeImage WHERE snake_id = ?", (snake_id,))
             conn.execute("DELETE FROM Snake WHERE snake_id = ?", (snake_id,))
 
@@ -134,50 +130,6 @@ class DatabaseManager:
             )
             for row in rows
         ]
-
-    # ======================
-    # Feature & Region
-    # ======================
-    def get_all_features(self):
-        with self.get_connection() as conn:
-            rows = conn.execute("SELECT * FROM Feature").fetchall()
-        return [Feature(row["feature_id"], row["name"], row["description"]) for row in rows]
-
-    def get_all_regions(self):
-        with self.get_connection() as conn:
-            rows = conn.execute("SELECT * FROM Region").fetchall()
-        return [Region(row["region_id"], row["name"]) for row in rows]
-
-    # ======================
-    # Snake ↔ Feature / Region
-    # ======================
-    def link_snake_feature(self, snake_id, feature_id, weight):
-        with self.get_connection() as conn:
-            conn.execute("""
-                INSERT OR REPLACE INTO SnakeFeature (snake_id, feature_id, weight)
-                VALUES (?, ?, ?)
-            """, (snake_id, feature_id, weight))
-
-    def unlink_snake_feature(self, snake_id, feature_id):
-        with self.get_connection() as conn:
-            conn.execute("""
-                DELETE FROM SnakeFeature
-                WHERE snake_id = ? AND feature_id = ?
-            """, (snake_id, feature_id))
-
-    def link_snake_region(self, snake_id, region_id):
-        with self.get_connection() as conn:
-            conn.execute("""
-                INSERT OR IGNORE INTO SnakeRegion (snake_id, region_id)
-                VALUES (?, ?)
-            """, (snake_id, region_id))
-
-    def unlink_snake_region(self, snake_id, region_id):
-        with self.get_connection() as conn:
-            conn.execute("""
-                DELETE FROM SnakeRegion
-                WHERE snake_id = ? AND region_id = ?
-            """, (snake_id, region_id))
 
     # ======================
     # User
@@ -559,7 +511,7 @@ class DatabaseManager:
     def delete_quiz(self, quiz_id):
         with self.get_connection() as conn:
             conn.execute("DELETE FROM Attempt WHERE quiz_id = ?", (quiz_id,))
-            conn.execute("DELETE FROM Quiz WHERE quiz_id = ?", (quiz_id,))\
+            conn.execute("DELETE FROM Quiz WHERE quiz_id = ?", (quiz_id,))
     
     def get_quiz_difficulty_sum(self, quiz_id):
         with self.get_connection() as conn:
