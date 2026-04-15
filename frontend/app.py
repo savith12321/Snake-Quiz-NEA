@@ -66,7 +66,7 @@ class SnakeApp(ctk.CTk):
 
         self.show_page("login")
 
-    def show_page(self, name):
+    def show_page(self, name,qid=None, qnum=None, diff=None):
         old_page = self.pages[name]
         old_page.destroy()
 
@@ -81,8 +81,10 @@ class SnakeApp(ctk.CTk):
             "quiz_history": QuizHistoryPage,
             "leaderboard": LeaderboardPage
         }[name]
-
-        page = PageClass(self.content, self)
+        if qid != None and qnum!= None and diff != None:
+            page = PageClass(self.content, self, qid,qnum, diff)
+        else:
+            page = PageClass(self.content, self)
         self.pages[name] = page
         page.grid(row=0, column=0, sticky="nsew")
         page.tkraise()

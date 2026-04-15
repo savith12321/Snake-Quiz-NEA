@@ -179,7 +179,9 @@ def get_quiz_sessions(user_id):
             "score": q["score"],
             "total": q["total"],
             "started_at": q["started_at"],
-            "completed_at": q["completed_at"]
+            "completed_at": q["completed_at"],
+            "q_num": len(db.get_attempts_for_quiz(q["quiz_id"])),
+            "last_diff": (db.get_attempts_for_quiz_last(q["quiz_id"])["difficulty"] if db.get_attempts_for_quiz_last(q["quiz_id"]) != None else 1) - (1 if db.get_attempts_for_quiz_last(q["quiz_id"])["difficulty"] != None and db.get_attempts_for_quiz_last(q["quiz_id"])["correct"] == 0 else 0)
         }
         for q in quizzes
     ])

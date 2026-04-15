@@ -8,14 +8,14 @@ API_BASE = "http://127.0.0.1:5000"
 
 
 class QuizPage(ctk.CTkFrame):
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller, quiz_id=None, question_number=0, current_difficulty=1):
         super().__init__(parent)
+        self.quiz_id = quiz_id
+        self.question_number = question_number
         self.controller = controller
-        self.quiz_id = None
         self.current_question = None
-        self.question_number = 0
         self.total_questions = 10
-        self.current_difficulty = 1
+        self.current_difficulty = current_difficulty
         self.image_refs = []
         self.answered = False
 
@@ -73,13 +73,14 @@ class QuizPage(ctk.CTkFrame):
         self.next_btn.pack(pady=15)
 
     def _start_quiz(self):
-        headers = {"Authorization": self.controller.token}
-        r = requests.post(f"{API_BASE}/quiz/start", json={"user_id": self.controller.user_id}, headers=headers)
-        if r.status_code != 201:
-            messagebox.showerror("Error", "Could not start quiz")
-            self.controller.show_page("home")
-            return
-        self.quiz_id = r.json()["quiz_id"]
+        if self.quiz_id == None:
+            headers = {"Authorization": self.controller.token}
+            r = requests.post(f"{API_BASE}/quiz/start", json={"user_id": self.controller.user_id}, headers=headers)
+            if r.status_code != 201:
+                messagebox.showerror("Error", "Could not start quiz")
+                self.controller.show_page("home")
+                return
+            self.quiz_id = r.json()["quiz_id"]
         self._load_question()
 
     def _load_question(self):
@@ -124,18 +125,7 @@ class QuizPage(ctk.CTkFrame):
                     ctk.CTkLabel(self.image_frame, image=tk_img, text="").pack(side="left", padx=10, pady=10)
 
         # Set question text
-        qtype = self.current_question["question_type"]
-        if qtype == "identify_by_image":
-            self.question_label.configure(text="What snake is shown in the image?")
-        elif qtype == "identify_by_description":
-            desc = self.current_question.get("snake_description", "")
-            self.question_label.configure(text=f"Which snake matches this description?\n\n{desc}")
-        elif qtype == "venom_level":
-            self.question_label.configure(text=f"What is the venom level of the {self.current_question.get('question_text', 'snake')}?")
-        elif qtype == "scientific_name":
-            self.question_label.configure(text=f"What is the scientific name of the {self.current_question.get('question_text', 'snake')}?")
-        else:
-            self.question_label.configure(text=self.current_question.get("question_text", ""))
+        self.question_label.configure(text=self.current_question.get("question_text", ""))
 
         # Set answer buttons
         choices = self.current_question.get("choices", [])

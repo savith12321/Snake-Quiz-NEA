@@ -90,11 +90,16 @@ class QuizHistoryPage(ctk.CTkFrame):
             ctk.CTkButton(
                 row, text="Delete Quiz Attempt", width=100, height=28, fg_color="#8b0000", hover_color="#b22222",
                 command=lambda qid=q["quiz_id"]: self._delete_attempt(qid)
-            ).pack(side="right", padx=10, pady=6)
+            ).pack(side="right", padx=10, pady=6) 
             ctk.CTkButton(
                 row, text="View Answers", width=100, height=28,
                 command=lambda qid=q["quiz_id"]: self._show_attempts(qid)
             ).pack(side="right", padx=10, pady=6)
+            if not q["completed_at"]:
+                ctk.CTkButton(
+                    row, text="Continue", width=100, height=28,
+                    command=lambda qid=q["quiz_id"], qnum=q["q_num"], diff=q["last_diff"]: self.controller.show_page("quiz", qid, qnum, diff)
+                ).pack(side="right", padx=10, pady=6)
     def _delete_attempt(self, quiz_id):
         r = requests.delete(
             f"{API_BASE}/quiz/attempts/{quiz_id}",

@@ -498,7 +498,7 @@ class DatabaseManager:
                 SELECT
                     a.attempt_id, a.correct, a.timestamp,
                     s.common_name, s.snake_id,
-                    q.question_type, q.question_text,
+                    q.question_type, q.question_text, q.difficulty,
                     ans.answer_text AS chosen_answer
                 FROM Attempt a
                 JOIN Snake s ON a.snake_id = s.snake_id
@@ -507,7 +507,21 @@ class DatabaseManager:
                 WHERE a.quiz_id = ?
                 ORDER BY a.timestamp ASC
             """, (quiz_id,)).fetchall()
-        
+    def get_attempts_for_quiz_last(self, quiz_id):
+        with self.get_connection() as conn:
+            return conn.execute("""
+                SELECT
+                    a.attempt_id, a.correct, a.timestamp,
+                    s.common_name, s.snake_id,
+                    q.question_type, q.question_text, q.difficulty,
+                    ans.answer_text AS chosen_answer
+                FROM Attempt a
+                JOIN Snake s ON a.snake_id = s.snake_id
+                LEFT JOIN Question q ON a.question_id = q.question_id
+                LEFT JOIN Answer ans ON a.answer_id = ans.answer_id
+                WHERE a.quiz_id = ?
+                ORDER BY a.timestamp DESC
+            """, (quiz_id,)).fetchone()
     def delete_quiz(self, quiz_id):
         with self.get_connection() as conn:
             conn.execute("DELETE FROM Attempt WHERE quiz_id = ?", (quiz_id,))
