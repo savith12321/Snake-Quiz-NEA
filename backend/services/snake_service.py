@@ -37,7 +37,7 @@ def encode_image(img_bytes):
 # GET all snakes
 # ======================
 @snake_bp.route("/snakes", methods=["GET"])
-#@token_required
+@token_required
 def get_all_snakes():
     snakes = db.get_all_snakes()
     result = []

@@ -12,26 +12,29 @@ class SignupPage(ctk.CTkFrame):
         ctk.CTkLabel(self, text="Sign Up", font=ctk.CTkFont(size=22, weight="bold")).pack(pady=20)
 
         self.username_entry = ctk.CTkEntry(self, placeholder_text="Username", width=250)
-        self.password_entry = ctk.CTkEntry(self, placeholder_text="Password", show="*", width=250)
-        self.role_entry = ctk.CTkEntry(self, placeholder_text="Role (admin/user)", width=250)
+        self.password_entry = ctk.CTkEntry(self, placeholder_text="Password", width=250, show="⦿")
+        self.confirm_password = ctk.CTkEntry(self, placeholder_text="Confirm password", width=250, show="⦿")
         self.username_entry.pack(pady=10)
         self.password_entry.pack(pady=10)
-        self.role_entry.pack(pady=10)
+        self.confirm_password.pack(pady=10)
 
         ctk.CTkButton(self, text="Create User", command=self.create_user).pack(pady=20)
 
     def create_user(self):
-        data = {
-            "username": self.username_entry.get(),
-            "password": self.password_entry.get(),
-            "role": self.role_entry.get()
-        }
-        r = requests.post(f"{API_BASE}/users", json=data)
-        if r.status_code == 201:
-            messagebox.showinfo("Success", "User created")
-            self.controller.show_page("login")
+        if self.confirm_password.get() == self.password_entry.get():
+
+            data = {
+                "username": self.username_entry.get(),
+                "password": self.password_entry.get(),
+            }
+            r = requests.post(f"{API_BASE}/auth/register", json=data)
+            if r.status_code == 201:
+                messagebox.showinfo("Success", "User created")
+                self.controller.show_page("login")
+            else:
+                messagebox.showerror("Error", r.text)
         else:
-            messagebox.showerror("Error", r.text)
+            messagebox.showerror("Error", "Password confirmation does not match.")
 
     def get_sidebar_buttons(self):
         return [

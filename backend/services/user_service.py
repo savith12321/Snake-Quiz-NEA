@@ -8,7 +8,7 @@ user_bp = Blueprint("users", __name__)
 db = DatabaseManager()
 
 @user_bp.route("/users", methods=["POST"])
-#@admin_required
+@admin_required
 def create_user():
     data = request.json
     password_hash = generate_password_hash(data["password"])

@@ -76,6 +76,8 @@ def _encode_images(images):
 @token_required
 def submit_answer():
     data = request.json
+    if "question_id" not in data or  "answer_id" not in data:
+        return jsonify({"error": "Invalid question or answer"}), 400
     question = db.get_question_by_id(data["question_id"])
     answer = db.get_answer(data["answer_id"])
 
@@ -84,22 +86,28 @@ def submit_answer():
 
     correct_answer = db.get_correct_answer(data["question_id"])
     correct = (data["answer_id"] == correct_answer["answer_id"])
+    if "quiz_id" in data and "user_id" in data:
+        attempt_id = db.create_quiz_attempt(
+            user_id=data["user_id"],
+            snake_id=question["snake_id"],
+            question_id=data["question_id"],
+            answer_id=data["answer_id"],
+            correct=correct,
+            quiz_id=data.get("quiz_id")
+        )
 
-    attempt_id = db.create_quiz_attempt(
-        user_id=data["user_id"],
-        snake_id=question["snake_id"],
-        question_id=data["question_id"],
-        answer_id=data["answer_id"],
-        correct=correct,
-        quiz_id=data.get("quiz_id")
-    )
-
-    return jsonify({
-        "attempt_id": attempt_id,
-        "correct": correct,
-        "correct_answer_id": correct_answer["answer_id"],
-        "correct_answer_text": correct_answer["answer_text"]
-    })
+        return jsonify({
+            "attempt_id": attempt_id,
+            "correct": correct,
+            "correct_answer_id": correct_answer["answer_id"],
+            "correct_answer_text": correct_answer["answer_text"]
+        })
+    else:
+        return jsonify({
+            "correct": correct,
+            "correct_answer_id": correct_answer["answer_id"],
+            "correct_answer_text": correct_answer["answer_text"]
+        })
 
 
 # ======================
@@ -181,7 +189,8 @@ def get_quiz_sessions(user_id):
             "started_at": q["started_at"],
             "completed_at": q["completed_at"],
             "q_num": len(db.get_attempts_for_quiz(q["quiz_id"])),
-            "last_diff": (db.get_attempts_for_quiz_last(q["quiz_id"])["difficulty"] if db.get_attempts_for_quiz_last(q["quiz_id"]) != None else 1) - (1 if db.get_attempts_for_quiz_last(q["quiz_id"])["difficulty"] != None and db.get_attempts_for_quiz_last(q["quiz_id"])["correct"] == 0 else 0)
+            "last_diff": (db.get_attempts_for_quiz_last(q["quiz_id"])["difficulty"] if db.get_attempts_for_quiz_last(q["quiz_id"]) != None else 1) 
+            - (1 if (db.get_attempts_for_quiz_last(q["quiz_id"]) != None and db.get_attempts_for_quiz_last(q["quiz_id"])["correct"] == 0) else 0)
         }
         for q in quizzes
     ])

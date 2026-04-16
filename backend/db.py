@@ -138,8 +138,8 @@ class DatabaseManager:
         try:
             with self.get_connection() as conn:
                 cur = conn.execute("""
-                    INSERT INTO User (username, role, password_hash, created_at)
-                    VALUES (?, ?, ?, ?)
+                    INSERT INTO User (username, role, password_hash, created_at, exp)
+                    VALUES (?, ?, ?, ?, 0)
                 """, (user.username, user.role, user.password_hash, user.created_at))
                 return cur.lastrowid
         except sqlite3.IntegrityError:
